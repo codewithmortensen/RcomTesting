@@ -4,12 +4,12 @@ export type Status =
   | 'ON_LEAVE'
   | 'SUSPENDED'
   | 'TERMINATED';
+export type Role = 'EMPLOYEE' | 'MANAGER' | 'SUPERVISOR' | 'EXECUTIVE';
 
 export type Gender = 'MALE' | 'FEMALE' | 'OTHER';
 export type Address = {
   street: string;
   city: string;
-  state: string;
   country: string;
   postal_code: string;
 };
@@ -36,4 +36,5 @@ export type Employee = {
   start_shift: Date;
   end_shift: Date;
   reports_to?: number; // Optional field for supervisor's employee_id
+  role: Role;
 };

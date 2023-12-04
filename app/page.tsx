@@ -1,13 +1,13 @@
 import EmployeeStatusBadge from './components/EmployeeStatusBadge';
+import RoleStatusBadge from './components/RoleStatusBadge';
 
 const HomePage = () => {
   return (
     <div>
-      <EmployeeStatusBadge status='ACTIVE' />
-      <EmployeeStatusBadge status='INACTIVE' />
-      <EmployeeStatusBadge status='ON_LEAVE' />
-      <EmployeeStatusBadge status='SUSPENDED' />
-      <EmployeeStatusBadge status='TERMINATED' />
+      <RoleStatusBadge role='EMPLOYEE' />
+      <RoleStatusBadge role='MANAGER' />
+      <RoleStatusBadge role='SUPERVISOR' />
+      <RoleStatusBadge role='EXECUTIVE' />
     </div>
   );
 };
