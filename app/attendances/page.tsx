@@ -1,11 +1,11 @@
-import { attendances } from '../data/attendances';
-import { columns } from './components/columns';
+'use client';
+
 import { DataTable } from './components/data-table';
 
 const HomePage = () => {
   return (
     <div className='mx-[5rem] my-10'>
-      <DataTable columns={columns} data={attendances} />
+      <DataTable />
     </div>
   );
 };

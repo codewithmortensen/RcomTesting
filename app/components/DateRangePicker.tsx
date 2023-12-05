@@ -28,7 +28,7 @@ const DateRangerPicker = ({ onSubmitForm }: DatePickerProps) => {
   });
 
   return (
-    <div className='mt-10 flex justify-center'>
+    <div>
       <Form {...form}>
         <form
           className='flex gap-3'
