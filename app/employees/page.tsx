@@ -1,4 +1,3 @@
-import { sql } from '../utils/query';
 import { columns } from './components/columns';
 import { DataTable } from './components/data-table';
 import { getEmployees } from './employees';
