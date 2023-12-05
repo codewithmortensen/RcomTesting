@@ -17,13 +17,10 @@ export function DataTableToolbar<TData>({
         <Input
           placeholder='Search for employee...'
           value={
-            (table.getColumn('work_day_status')?.getFilterValue() as string) ??
-            ''
+            (table.getColumn('first_name')?.getFilterValue() as string) ?? ''
           }
           onChange={(event) =>
-            table
-              .getColumn('work_day_status')
-              ?.setFilterValue(event.target.value)
+            table.getColumn('first_name')?.setFilterValue(event.target.value)
           }
           className='h-12 w-[200px] lg:w-[350px] rounded-lg'
         />

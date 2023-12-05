@@ -3,7 +3,6 @@
 import { flexRender } from '@tanstack/react-table';
 
 import DateRangerPicker from '@/app/components/DateRangePicker';
-import { attendances } from '@/app/data/attendances';
 import {
   Table,
   TableBody,
@@ -13,12 +12,18 @@ import {
   TableRow,
 } from '@/components/ui/table';
 import { DataTablePagination } from '../components/data-table-pagination';
+import { useAttendances } from '../hook/useAttendances';
 import useTableFilter from '../hook/useTableFilter';
 import { columns } from './columns';
 import { DataTableToolbar } from './data-table-toolbar';
 
 export function DataTable() {
-  const { table } = useTableFilter({ columns: columns, data: attendances });
+  const { data } = useAttendances();
+
+  const { table } = useTableFilter({
+    columns: columns,
+    data: data !== undefined ? data : [],
+  });
 
   return (
     <section>

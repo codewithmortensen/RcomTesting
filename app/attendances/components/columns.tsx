@@ -1,6 +1,6 @@
 'use client';
 
-import { AttendanceTable } from '@/app/types/definitions';
+import { AttendanceTable, EmployeeAttendance } from '@/app/types/definitions';
 import { Checkbox } from '@/components/ui/checkbox';
 import { ColumnDef } from '@tanstack/react-table';
 
@@ -10,7 +10,9 @@ import { DataTableColumnHeader } from './data-table-column-header';
 import { DataTableRowActions } from './data-table-row-actions';
 import WorkDayStatus from './WorkDayStatus';
 
-export const columns: ColumnDef<AttendanceTable>[] = [
+import moment from 'moment';
+
+export const columns: ColumnDef<EmployeeAttendance>[] = [
   {
     id: 'select',
     header: ({ table }) => (
@@ -35,14 +37,34 @@ export const columns: ColumnDef<AttendanceTable>[] = [
     enableSorting: false,
     enableHiding: false,
   },
+
   {
-    accessorKey: 'employee_id',
+    accessorKey: 'first_name',
     header: ({ column }) => (
-      <DataTableColumnHeader column={column} title='Employee ID' />
+      <DataTableColumnHeader column={column} title='First Name' />
     ),
-    cell: ({ row }) => <div>{row.getValue('employee_id')}</div>,
-    enableSorting: false,
-    enableHiding: false,
+    cell: ({ row }) => {
+      const time: Date = row.getValue('first_name');
+      return (
+        <div className='flex space-x-2'>
+          <span>{time.toString()}</span>
+        </div>
+      );
+    },
+  },
+  {
+    accessorKey: 'last_name',
+    header: ({ column }) => (
+      <DataTableColumnHeader column={column} title='Last Name' />
+    ),
+    cell: ({ row }) => {
+      const time: Date = row.getValue('last_name');
+      return (
+        <div className='flex space-x-2'>
+          <span>{time.toString()}</span>
+        </div>
+      );
+    },
   },
   {
     accessorKey: 'check_in_time',
