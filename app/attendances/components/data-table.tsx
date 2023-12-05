@@ -27,7 +27,7 @@ export function DataTable() {
         <DateRangerPicker onSubmitForm={(range) => console.log(range)} />
       </div>
 
-      <Table className='border rounded-md'>
+      <Table className='border rounded-md mb-5'>
         <TableHeader>
           {table.getHeaderGroups().map((headerGroup) => (
             <TableRow key={headerGroup.id}>
