@@ -48,8 +48,8 @@ export type AttendanceTable = {
   attendance_id: number;
   employee_id: number;
   attendance_date: string;
-  check_in_time: string;
-  check_out_time: string;
+  check_in_time: Date;
+  check_out_time: Date;
   check_in_status: CheckInStatus;
   check_out_status: CheckOutStatus;
   work_day_status: WorkDayStatus;

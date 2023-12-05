@@ -1,7 +1,7 @@
 import { sql } from './utils/query';
 
 async function getData() {
-  const response = await sql`SELECT version()`;
+  const response = await sql`SELECT * FROM address;`;
   console.log(response);
   return response;
 }
