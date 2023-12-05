@@ -1,3 +1,6 @@
+import { z } from 'zod';
+import { datePickerSchema } from './schema';
+
 export type Role = 'EMPLOYEE' | 'MANAGER' | 'SUPERVISOR' | 'EXECUTIVE';
 
 export type Gender = 'MALE' | 'FEMALE' | 'OTHER';
@@ -95,3 +98,5 @@ export type AttendanceReport = {
   absent_count: number;
   present_count: number;
 };
+
+export type DatePickerData = z.infer<typeof datePickerSchema>;
