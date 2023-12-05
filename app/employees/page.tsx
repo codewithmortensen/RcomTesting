@@ -1,8 +1,10 @@
-import { employees } from '../data/profiles';
+import { sql } from '../utils/query';
 import { columns } from './components/columns';
 import { DataTable } from './components/data-table';
+import { getEmployees } from './employees';
 
-const EmployeePage = () => {
+const EmployeePage = async () => {
+  const employees = await getEmployees();
   return (
     <div className='mx-[5rem] my-10'>
       <DataTable data={employees} columns={columns} />

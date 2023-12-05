@@ -37,7 +37,7 @@ export const columns: ColumnDef<EmployeeProfile>[] = [
     header: ({ column }) => (
       <DataTableColumnHeader column={column} title='Employee ID' />
     ),
-    cell: ({ row }) => <div>{row.getValue('employee_id')}</div>,
+    cell: ({ row }) => <div>rcom-{row.getValue('employee_id')}</div>,
     enableSorting: false,
     enableHiding: false,
   },

@@ -72,19 +72,19 @@ export type EmployeeProfile = {
   profile_id: number;
   first_name: string;
   last_name: string;
-  birth_date: string;
+  birth_date: Date;
   gender: Gender;
   phone_number: string;
   email: string;
-  address_id: number;
-  hire_date: string;
+  hire_date: Date;
   salary: number;
   department: string;
   job_title: string;
   status: EmployeeStatus;
-  start_shift: string;
-  end_shift: string;
-  reports_to?: number;
+  start_shift: Date;
+  end_shift: Date;
+  reports_to: number | null;
+  role: Role;
 };
 
 export type AttendanceReport = {
