@@ -17,7 +17,10 @@ const RoleStatusBadge = ({ role }: RoleStatusBadgeProps) => {
       : 'bg-gray-500';
   return (
     <Badge
-      className={cn(variants, 'text-xs font-normal rounded-sm tracking-wide')}>
+      className={cn(
+        variants,
+        'text-xs font-normal rounded-sm tracking-wide cursor-pointer'
+      )}>
       {role === 'EMPLOYEE'
         ? 'Employee'
         : role === 'MANAGER'

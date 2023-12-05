@@ -38,3 +38,24 @@ export type Employee = {
   reports_to?: number; // Optional field for supervisor's employee_id
   role: Role;
 };
+
+export type EmployeeTable = {
+  employee_id: number;
+  profile_id: number;
+  first_name: string;
+  last_name: string;
+  birth_date: Date;
+  gender: Gender;
+  phone_number: string;
+  email: string;
+  address: Address;
+  hire_date: Date;
+  salary: number;
+  department: string;
+  job_title: string;
+  status: Status;
+  start_shift: Date;
+  end_shift: Date;
+  reports_to?: number;
+  role: Role;
+};
