@@ -1,13 +1,16 @@
 'use client';
 
-import RoleStatusBadge from '@/app/components/RoleStatusBadge';
-import { EmployeeProfile, Role } from '@/app/types/definitions';
+import { AttendanceTable } from '@/app/types/definitions';
 import { Checkbox } from '@/components/ui/checkbox';
 import { ColumnDef } from '@tanstack/react-table';
+
+import CheckInStatusBadge from './CheckInStatus';
+import CheckOutStatusBadge from './CheckOutStatus';
 import { DataTableColumnHeader } from './data-table-column-header';
 import { DataTableRowActions } from './data-table-row-actions';
+import WorkDayStatus from './WorkDayStatus';
 
-export const columns: ColumnDef<EmployeeProfile>[] = [
+export const columns: ColumnDef<AttendanceTable>[] = [
   {
     id: 'select',
     header: ({ table }) => (
@@ -42,85 +45,72 @@ export const columns: ColumnDef<EmployeeProfile>[] = [
     enableHiding: false,
   },
   {
-    accessorKey: 'first_name',
+    accessorKey: 'check_in_time',
     header: ({ column }) => (
-      <DataTableColumnHeader column={column} title='First Name' />
+      <DataTableColumnHeader column={column} title='Check In' />
     ),
     cell: ({ row }) => {
+      const time: Date = row.getValue('check_in_time');
       return (
         <div className='flex space-x-2'>
-          <span>{row.getValue('first_name')}</span>
+          <span>{time.toString()}</span>
         </div>
       );
     },
   },
   {
-    accessorKey: 'last_name',
+    accessorKey: 'check_in_status',
     header: ({ column }) => (
-      <DataTableColumnHeader column={column} title='Last Name' />
+      <DataTableColumnHeader column={column} title='Check In Status' />
     ),
     cell: ({ row }) => {
       return (
         <div className='flex space-x-2'>
-          <span>{row.getValue('last_name')}</span>
+          <CheckInStatusBadge status={row.getValue('check_in_status')} />
         </div>
       );
     },
   },
   {
-    accessorKey: 'gender',
+    accessorKey: 'check_out_time',
     header: ({ column }) => (
-      <DataTableColumnHeader column={column} title='Gender' />
+      <DataTableColumnHeader column={column} title='Check Out' />
     ),
     cell: ({ row }) => {
+      const time: Date = row.getValue('check_out_time');
       return (
         <div className='flex space-x-2'>
-          <span>{row.getValue('gender') === 'MALE' ? 'Male' : 'Female'}</span>
+          <span>{time.toString()}</span>
         </div>
       );
     },
   },
   {
-    accessorKey: 'email',
+    accessorKey: 'check_out_status',
     header: ({ column }) => (
-      <DataTableColumnHeader column={column} title='Email' />
+      <DataTableColumnHeader column={column} title='Check Out Status' />
     ),
     cell: ({ row }) => {
       return (
         <div className='flex space-x-2'>
-          <span>{row.getValue('email')}</span>
+          <CheckOutStatusBadge status={row.getValue('check_out_status')} />
         </div>
       );
     },
   },
   {
-    accessorKey: 'phone_number',
+    accessorKey: 'work_day_status',
     header: ({ column }) => (
-      <DataTableColumnHeader column={column} title='Phone Number' />
+      <DataTableColumnHeader column={column} title='Day Status' />
     ),
     cell: ({ row }) => {
       return (
         <div className='flex space-x-2'>
-          <span>{row.getValue('phone_number')}</span>
+          <WorkDayStatus status={row.getValue('work_day_status')} />
         </div>
       );
     },
   },
-  {
-    accessorKey: 'role',
-    header: ({ column }) => (
-      <DataTableColumnHeader column={column} title='Role' />
-    ),
-    cell: ({ row }) => {
-      const role: Role = row.getValue('role');
-      return (
-        <div className='flex space-x-2'>
-          <RoleStatusBadge role={role} />
-        </div>
-      );
-    },
-  },
-
   {
     id: 'actions',
     cell: ({ row }) => (

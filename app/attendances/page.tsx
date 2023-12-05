@@ -1,12 +1,12 @@
-import { employees } from '../data/profiles';
+import { attendances } from '../data/attendances';
 import { columns } from './components/columns';
 import { DataTable } from './components/data-table';
 
-const EmployeePage = () => {
+const HomePage = () => {
   return (
     <div className='mx-[5rem] my-10'>
-      <DataTable data={employees} columns={columns} />
+      <DataTable columns={columns} data={attendances} />
     </div>
   );
 };
-export default EmployeePage;
+export default HomePage;

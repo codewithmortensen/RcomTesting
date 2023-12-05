@@ -1,61 +1,73 @@
-export type Status =
-  | 'ACTIVE'
-  | 'INACTIVE'
-  | 'ON_LEAVE'
-  | 'SUSPENDED'
-  | 'TERMINATED';
 export type Role = 'EMPLOYEE' | 'MANAGER' | 'SUPERVISOR' | 'EXECUTIVE';
 
 export type Gender = 'MALE' | 'FEMALE' | 'OTHER';
+
+export type CheckOutStatus = 'ON_TIME' | 'EARLY';
+
+export type CheckInStatus = 'ON_TIME' | 'LATE';
+
+export type EmployeeStatus = 'ACTIVE' | 'INACTIVE' | 'SUSPENDED';
+
+export type WorkDayStatus = 'ABSENT' | 'PRESENT';
+
 export type Address = {
+  address_id: number;
   street: string;
   city: string;
-  country: string;
-  postal_code: string;
 };
 
-export type Profile = {
+export type ProfileTable = {
   profile_id: number;
   first_name: string;
   last_name: string;
-  birth_date: Date;
+  birth_date: string;
   gender: Gender;
   phone_number: string;
   email: string;
-  address: Address; // Added address field
-};
-
-export type Employee = {
-  employee_id: number;
-  profile: Profile; // Changed from profile_id to Profile type
-  hire_date: Date;
-  salary: number;
-  department: string;
-  job_title: string;
-  status: Status;
-  start_shift: Date;
-  end_shift: Date;
-  reports_to?: number; // Optional field for supervisor's employee_id
-  role: Role;
+  address_id: number;
 };
 
 export type EmployeeTable = {
   employee_id: number;
   profile_id: number;
-  first_name: string;
-  last_name: string;
-  birth_date: Date;
-  gender: Gender;
-  phone_number: string;
-  email: string;
-  address: Address;
   hire_date: Date;
   salary: number;
   department: string;
   job_title: string;
-  status: Status;
+  status: EmployeeStatus;
   start_shift: Date;
   end_shift: Date;
   reports_to?: number;
   role: Role;
+};
+
+export type AttendanceTable = {
+  attendance_id: number;
+  employee_id: number;
+  attendance_date: string;
+  check_in_time: string;
+  check_out_time: string;
+  check_in_status: CheckInStatus;
+  check_out_status: CheckOutStatus;
+  work_day_status: WorkDayStatus;
+};
+
+export type EmployeeProfile = {
+  employee_id: number;
+  profile_id: number;
+  first_name: string;
+  last_name: string;
+  birth_date: string;
+  gender: Gender;
+  phone_number: string;
+  email: string;
+  address_id: number;
+  hire_date: string;
+  salary: number;
+  department: string;
+  job_title: string;
+  status: EmployeeStatus;
+  start_shift: string;
+  end_shift: string;
+  reports_to?: number;
 };

@@ -37,7 +37,9 @@ export function DataTableColumnHeader<TData, TValue>({
         <DropdownMenuTrigger asChild>
           <Button
             variant='ghost'
-            className='-ml-3 h-8 data-[state=open]:bg-secondary text-xs'>
+            // size='sm'
+            className='-ml-3 h-8 data-[state=open]:bg-secondary text-xs'
+          >
             <span>{title}</span>
             {column.getIsSorted() === 'desc' ? (
               <ArrowDownIcon className='ml-2 h-4 w-4' />
