@@ -7,10 +7,21 @@ export const GET = async (request: NextRequest) => {
   let from = new Date().toISOString().slice(0, 10);
   let to = new Date().toISOString().slice(0, 10);
 
-  if (url.searchParams.get('from'))
-    from = new Date(url.searchParams.get('from')!).toISOString().slice(0, 10);
-  if (url.searchParams.get('to'))
-    to = new Date(url.searchParams.get('to')!).toISOString().slice(0, 10);
+  if (url.searchParams.get('from')) {
+    const fromDate = new Date(url.searchParams.get('from')!);
+    if (isNaN(fromDate.getTime())) {
+      return NextResponse.json({ error: 'Invalid from date' }, { status: 400 });
+    }
+    from = fromDate.toISOString().slice(0, 10);
+  }
+
+  if (url.searchParams.get('to')) {
+    const toDate = new Date(url.searchParams.get('to')!);
+    if (isNaN(toDate.getTime())) {
+      return NextResponse.json({ error: 'Invalid to date' }, { status: 400 });
+    }
+    to = toDate.toISOString().slice(0, 10);
+  }
 
   try {
     const result = await sql`
@@ -32,8 +43,9 @@ export const GET = async (request: NextRequest) => {
     `;
     return NextResponse.json(result);
   } catch (error) {
+    console.error(error);
     return NextResponse.json(
-      { error: 'Failed to fetch the emplooyee attendances' },
+      { error: 'Failed to fetch the employee attendances' },
       { status: 500 }
     );
   }

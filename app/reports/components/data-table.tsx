@@ -14,20 +14,37 @@ import { columns } from './columns';
 import { DataTableToolbar } from './data-table-toolbar';
 import { useAttendanceReport } from '../hook/useAttendanceReport';
 import useTableFilter from '@/app/attendances/hook/useTableFilter';
+import { useEffect, useState } from 'react';
 
 export function DataTable() {
-  const { data } = useAttendanceReport();
+  const [to, setTo] = useState<Date>();
+  const [from, setFrom] = useState<Date>();
+
+  const { data, refetch, isLoading } = useAttendanceReport({ to, from });
 
   const { table } = useTableFilter({
     columns: columns,
     data: data !== undefined ? data : [],
   });
 
+  useEffect(() => {
+    refetch();
+  }, [to, from, refetch]);
+
+  if (isLoading) {
+    return <div>Loading...</div>;
+  }
+
   return (
     <section>
       <div className='flex my-5 justify-between'>
         <DataTableToolbar table={table} />
-        <DateRangerPicker onSubmitForm={(range) => console.log(range)} />
+        <DateRangerPicker
+          onSubmitForm={({ range }) => {
+            setFrom(range.from);
+            setTo(range.to);
+          }}
+        />
       </div>
 
       <Table className='border rounded-md mb-5'>
