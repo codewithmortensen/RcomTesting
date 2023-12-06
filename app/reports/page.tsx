@@ -1,16 +1,9 @@
-'use client';
-
-import { useAttendanceReport } from './hook/useAttendanceReport';
+import { DataTable } from './components/data-table';
 
 const HomePage = () => {
-  const { data } = useAttendanceReport();
   return (
-    <div>
-      <ul>
-        {data?.map((item) => (
-          <li key={item.last_name}>{item.first_name}</li>
-        ))}
-      </ul>
+    <div className='mx-[5rem] my-10'>
+      <DataTable />
     </div>
   );
 };

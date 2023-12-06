@@ -1,16 +1,12 @@
 'use client';
 
-import { EmployeeAttendance } from '@/app/types/definitions';
+import { AttendanceReport } from '@/app/types/definitions';
 import { Checkbox } from '@/components/ui/checkbox';
 import { ColumnDef } from '@tanstack/react-table';
-
-import CheckInStatusBadge from './CheckInStatus';
-import CheckOutStatusBadge from './CheckOutStatus';
 import { DataTableColumnHeader } from './data-table-column-header';
 import { DataTableRowActions } from './data-table-row-actions';
-import WorkDayStatus from './WorkDayStatus';
 
-export const columns: ColumnDef<EmployeeAttendance>[] = [
+export const columns: ColumnDef<AttendanceReport>[] = [
   {
     id: 'select',
     header: ({ table }) => (
@@ -32,16 +28,6 @@ export const columns: ColumnDef<EmployeeAttendance>[] = [
         className='translate-y-[2px]'
       />
     ),
-    enableSorting: false,
-    enableHiding: false,
-  },
-
-  {
-    accessorKey: 'employee_id',
-    header: ({ column }) => (
-      <DataTableColumnHeader column={column} title='Employee ID' />
-    ),
-    cell: ({ row }) => <div>rcom-{row.getValue('employee_id')}</div>,
     enableSorting: false,
     enableHiding: false,
   },
@@ -75,12 +61,39 @@ export const columns: ColumnDef<EmployeeAttendance>[] = [
     },
   },
   {
-    accessorKey: 'check_in_time',
+    accessorKey: 'on_time_check_in_count',
     header: ({ column }) => (
-      <DataTableColumnHeader column={column} title='Check In' />
+      <DataTableColumnHeader column={column} title='On Time' />
     ),
     cell: ({ row }) => {
-      const time: Date = row.getValue('check_in_time');
+      const count: string = row.getValue('on_time_check_in_count');
+      return (
+        <div className='flex space-x-2'>
+          <span>{count}</span>
+        </div>
+      );
+    },
+  },
+  {
+    accessorKey: 'late_check_in_count',
+    header: ({ column }) => (
+      <DataTableColumnHeader column={column} title='Late' />
+    ),
+    cell: ({ row }) => {
+      return (
+        <div className='flex space-x-2'>
+          {row.getValue('late_check_in_count')}
+        </div>
+      );
+    },
+  },
+  {
+    accessorKey: 'early_check_out_count',
+    header: ({ column }) => (
+      <DataTableColumnHeader column={column} title='Early' />
+    ),
+    cell: ({ row }) => {
+      const time: Date = row.getValue('early_check_out_count');
       return (
         <div className='flex space-x-2'>
           <span>{time.toString()}</span>
@@ -89,62 +102,33 @@ export const columns: ColumnDef<EmployeeAttendance>[] = [
     },
   },
   {
-    accessorKey: 'check_in_status',
+    accessorKey: 'on_time_check_out_count',
     header: ({ column }) => (
-      <DataTableColumnHeader column={column} title='Check In Status' />
+      <DataTableColumnHeader column={column} title='Ch' />
     ),
     cell: ({ row }) => {
       return (
         <div className='flex space-x-2'>
-          <CheckInStatusBadge status={row.getValue('check_in_status')} />
+          {row.getValue('on_time_check_out_count')}
         </div>
       );
     },
   },
   {
-    accessorKey: 'check_out_time',
+    accessorKey: 'absent_count',
     header: ({ column }) => (
-      <DataTableColumnHeader column={column} title='Check Out' />
-    ),
-    cell: ({ row }) => {
-      const time: Date = row.getValue('check_out_time');
-      return (
-        <div className='flex space-x-2'>
-          <span>{time.toString()}</span>
-        </div>
-      );
-    },
-  },
-  {
-    accessorKey: 'check_out_status',
-    header: ({ column }) => (
-      <DataTableColumnHeader column={column} title='Check Out Status' />
+      <DataTableColumnHeader column={column} title='Absent' />
     ),
     cell: ({ row }) => {
       return (
-        <div className='flex space-x-2'>
-          <CheckOutStatusBadge status={row.getValue('check_out_status')} />
-        </div>
+        <div className='flex space-x-2'>{row.getValue('absent_count')}</div>
       );
     },
   },
-  {
-    accessorKey: 'work_day_status',
-    header: ({ column }) => (
-      <DataTableColumnHeader column={column} title='Day Status' />
-    ),
-    cell: ({ row }) => {
-      return (
-        <div className='flex space-x-2'>
-          <WorkDayStatus status={row.getValue('work_day_status')} />
-        </div>
-      );
-    },
-  },
-  {
-    id: 'actions',
-    cell: ({ row }) => (
-      <DataTableRowActions employee_id={row.getValue('employee_id')} />
-    ),
-  },
+  // {
+  //   id: 'actions',
+  //   cell: ({ row }) => (
+  //     <DataTableRowActions employee_id={row.getValue('employee_id')} />
+  //   ),
+  // },
 ];

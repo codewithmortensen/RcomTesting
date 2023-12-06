@@ -1,7 +1,5 @@
 'use client';
-
 import { flexRender } from '@tanstack/react-table';
-
 import DateRangerPicker from '@/app/components/DateRangePicker';
 import {
   Table,
@@ -11,17 +9,14 @@ import {
   TableHeader,
   TableRow,
 } from '@/components/ui/table';
-import { useState } from 'react';
 import { DataTablePagination } from '../components/data-table-pagination';
-import { useAttendances } from '../hook/useAttendances';
-import useTableFilter from '../hook/useTableFilter';
 import { columns } from './columns';
 import { DataTableToolbar } from './data-table-toolbar';
-export function DataTable() {
-  const [to, setTo] = useState<Date>();
-  const [from, setFrom] = useState<Date>();
+import { useAttendanceReport } from '../hook/useAttendanceReport';
+import useTableFilter from '@/app/attendances/hook/useTableFilter';
 
-  const { data } = useAttendances({ to, from });
+export function DataTable() {
+  const { data } = useAttendanceReport();
 
   const { table } = useTableFilter({
     columns: columns,
@@ -32,12 +27,7 @@ export function DataTable() {
     <section>
       <div className='flex my-5 justify-between'>
         <DataTableToolbar table={table} />
-        <DateRangerPicker
-          onSubmitForm={({ range }) => {
-            setFrom(range.from);
-            setTo(range.to);
-          }}
-        />
+        <DateRangerPicker onSubmitForm={(range) => console.log(range)} />
       </div>
 
       <Table className='border rounded-md mb-5'>
