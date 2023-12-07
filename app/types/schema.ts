@@ -32,5 +32,5 @@ export const profileSchema = z.object({
 });
 
 export const employeeIdSchema = z.object({
-  employeeId: z.number({ required_error: 'employee id is required' }),
+  employee_id: z.number({ required_error: 'employee id is required' }),
 });

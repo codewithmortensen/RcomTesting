@@ -46,7 +46,8 @@ export default function Component() {
                 />
                 {errors.employeeId && (
                   <p className='text-xs text-red-600 ml-1 mt-1'>
-                    {errors.employeeId.message}
+                    {/* {errors.employeeId.message} */}
+                    Employee ID is required
                   </p>
                 )}
               </div>

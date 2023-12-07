@@ -51,42 +51,18 @@ export const columns: ColumnDef<EmployeeAttendance>[] = [
     header: ({ column }) => (
       <DataTableColumnHeader column={column} title='First Name' />
     ),
-    cell: ({ row }) => {
-      const time: Date = row.getValue('first_name');
-      return (
-        <div className='flex space-x-2'>
-          <span>{time.toString()}</span>
-        </div>
-      );
-    },
   },
   {
     accessorKey: 'last_name',
     header: ({ column }) => (
       <DataTableColumnHeader column={column} title='Last Name' />
     ),
-    cell: ({ row }) => {
-      const time: Date = row.getValue('last_name');
-      return (
-        <div className='flex space-x-2'>
-          <span>{time.toString()}</span>
-        </div>
-      );
-    },
   },
   {
     accessorKey: 'check_in_time',
     header: ({ column }) => (
       <DataTableColumnHeader column={column} title='Check In' />
     ),
-    cell: ({ row }) => {
-      const time: Date = row.getValue('check_in_time');
-      return (
-        <div className='flex space-x-2'>
-          <span>{time.toString()}</span>
-        </div>
-      );
-    },
   },
   {
     accessorKey: 'check_in_status',
@@ -107,10 +83,10 @@ export const columns: ColumnDef<EmployeeAttendance>[] = [
       <DataTableColumnHeader column={column} title='Check Out' />
     ),
     cell: ({ row }) => {
-      const time: Date = row.getValue('check_out_time');
+      const time: string = row.getValue('check_out_time');
       return (
         <div className='flex space-x-2'>
-          <span>{time.toString()}</span>
+          <span>{time ? time : '00:00:00'}</span>
         </div>
       );
     },
