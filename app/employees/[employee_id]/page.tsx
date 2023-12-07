@@ -19,7 +19,7 @@ const genderMap = {
 
 const headerStyle = cn(
   cn(
-    'text-lg font-bold py-3 tracking-normal sm:text-3xl xl:text-4xl/none bg-clip-text text-center text-transparent bg-gradient-to-r from-gray-300 to-gray-500',
+    'text-lg font-bold py-3 tracking-normal sm:text-3xl xl:text-4xl/none bg-clip-text  text-transparent bg-gradient-to-r from-gray-300 to-gray-500 text-center text-left',
     code.className
   )
 );
@@ -75,11 +75,11 @@ const EmployeeDetailPage = async ({
   return (
     <div className='mx-5 md:mx-20 mt-10'>
       <div className='grid grid-cols-1 md:grid-cols-2 gap-1 md:gap-[5rem]'>
-        <div className='overflow-hidden sm:rounded-lg'>
+        <div className='overflow-hidden sm:rounded-lg '>
           <div className='px-4 py-5 sm:px-6'>
             <h1 className={headerStyle}>Employee Profile Info</h1>
           </div>
-          <div className='border-t '>
+          <div className=''>
             <dl>
               {profileInfo.map((info, index) => (
                 <div
@@ -94,11 +94,11 @@ const EmployeeDetailPage = async ({
             </dl>
           </div>
         </div>
-        <div className='overflow-hidden sm:rounded-lg'>
+        <div className='overflow-hidden sm:rounded-lg '>
           <div className='px-4 py-5 sm:px-6'>
             <h1 className={headerStyle}>Employee Work Info</h1>
           </div>
-          <div className='border-t '>
+          <div className=''>
             <dl>
               {workInfo.map((info, index) => (
                 <div
