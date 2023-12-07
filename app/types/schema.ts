@@ -30,3 +30,7 @@ export const profileSchema = z.object({
     .string({ required_error: 'email is required' })
     .email({ message: 'email is invalid' }),
 });
+
+export const employeeIdSchema = z.object({
+  employeeId: z.number({ required_error: 'employee id is required' }),
+});

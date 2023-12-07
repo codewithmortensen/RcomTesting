@@ -1,5 +1,5 @@
 import { z } from 'zod';
-import { datePickerSchema, profileSchema } from './schema';
+import { datePickerSchema, employeeIdSchema, profileSchema } from './schema';
 
 export type Role = 'EMPLOYEE' | 'MANAGER' | 'SUPERVISOR' | 'EXECUTIVE';
 
@@ -100,3 +100,4 @@ export type AttendanceReport = {
 
 export type DatePickerData = z.infer<typeof datePickerSchema>;
 export type ProfileData = z.infer<typeof profileSchema>;
+export type EmployeeIdData = z.infer<typeof employeeIdSchema>;
