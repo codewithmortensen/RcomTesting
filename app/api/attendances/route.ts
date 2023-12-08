@@ -82,7 +82,7 @@ export const POST = async (request: NextRequest) => {
       await sql`SELECT EXISTS(SELECT 1 FROM EmployeeTable WHERE employee_id = ${validation.data.employee_id})`;
     if (!employee[0].exists) {
       return NextResponse.json(
-        { error: 'Employee does not exist' },
+        { message: 'Employee does not exist' },
         { status: 400 }
       );
     }
@@ -128,7 +128,7 @@ export const POST = async (request: NextRequest) => {
     );
   } catch (error) {
     return NextResponse.json(
-      { error: 'Employee ID is required' },
+      { error: "Can't connect to the database" },
       { status: 400 }
     );
   }

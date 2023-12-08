@@ -5,7 +5,9 @@ import { employeeIdSchema } from '@/app/types/schema';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { zodResolver } from '@hookform/resolvers/zod';
-import axios from 'axios';
+import axios, { Axios, AxiosError } from 'axios';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 import dynamic from 'next/dynamic';
 import { useForm } from 'react-hook-form';
@@ -21,17 +23,20 @@ export default function Component() {
   });
   const handleFormSubmit = async (data: EmployeeIdData) => {
     try {
-      const response = await axios.post('/api/attendances', data);
+      const response = await axios.post('/api/attendances/', data);
       if (response.status === 200) {
         alert('Check in success');
       }
-    } catch (error) {
-      alert(error);
+    } catch (error: unknown) {
+      if (error instanceof AxiosError) {
+        toast.error(error.response?.data.message);
+      }
     }
-    console.log(data);
   };
+
   return (
     <section className='w-full relative'>
+      <ToastContainer position='top-center' />
       <div className='container px-4 md:px-6 flex justify-center items-center h-screen'>
         <div className='absolute top-5 right-20'>
           <TimeCard />
