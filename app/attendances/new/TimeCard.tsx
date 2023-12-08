@@ -28,7 +28,7 @@ const TimeCard = () => {
 
   return (
     <div>
-      <Card className=''>
+      <Card className='w-[20rem]'>
         <CardHeader className='flex flex-row items-center justify-between space-y-0 pb-2'>
           <CardTitle className='text-md font-bold text-gray-500'>
             {dayjs(currentDateTime).format('dddd, DD MMMM YYYY')}

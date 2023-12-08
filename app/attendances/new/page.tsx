@@ -5,6 +5,7 @@ import { employeeIdSchema } from '@/app/types/schema';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { zodResolver } from '@hookform/resolvers/zod';
+import axios from 'axios';
 
 import dynamic from 'next/dynamic';
 import { useForm } from 'react-hook-form';
@@ -18,6 +19,17 @@ export default function Component() {
   } = useForm<EmployeeIdData>({
     resolver: zodResolver(employeeIdSchema),
   });
+  const handleFormSubmit = async (data: EmployeeIdData) => {
+    try {
+      const response = await axios.post('/api/attendances', data);
+      if (response.status === 200) {
+        alert('Check in success');
+      }
+    } catch (error) {
+      alert(error);
+    }
+    console.log(data);
+  };
   return (
     <section className='w-full relative'>
       <div className='container px-4 md:px-6 flex justify-center items-center h-screen'>
@@ -34,17 +46,15 @@ export default function Component() {
           <div className='w-full max-w-sm space-y-2'>
             <form
               className='flex space-x-2 justify-between'
-              onSubmit={handleSubmit((data) => {
-                console.log(data);
-              })}>
+              onSubmit={handleSubmit(handleFormSubmit)}>
               <div>
                 <Input
                   className='w-[20rem] flex-2'
                   placeholder='Scan your ID or Add it manually'
                   type='number'
-                  {...register('employeeId', { valueAsNumber: true })}
+                  {...register('employee_id', { valueAsNumber: true })}
                 />
-                {errors.employeeId && (
+                {errors.employee_id && (
                   <p className='text-xs text-red-600 ml-1 mt-1'>
                     {/* {errors.employeeId.message} */}
                     Employee ID is required

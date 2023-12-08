@@ -1,31 +1,45 @@
 import { employeeIdSchema } from '@/app/types/schema';
 import { sql } from '@/app/utils/query';
-import { sq } from 'date-fns/locale';
 import dayjs from 'dayjs';
 import { NextRequest, NextResponse } from 'next/server';
 
 export const GET = async (request: NextRequest) => {
   const url = new URL(request.url);
+  let from: string;
+  let to: string;
 
-  let from = new Date().toISOString().slice(0, 10);
-  let to = new Date().toISOString().slice(0, 10);
+  try {
+    const response = await fetch(
+      'http://worldtimeapi.org/api/timezone/America/Port-au-Prince'
+    );
+    const data = await response.json();
+    const currentDateTime = data.datetime;
+
+    from = dayjs(currentDateTime).format('YYYY-MM-DD');
+    to = dayjs(currentDateTime).format('YYYY-MM-DD');
+  } catch (error) {
+    console.error(error);
+    return NextResponse.json(
+      { error: 'Failed to fetch the current date and time' },
+      { status: 500 }
+    );
+  }
 
   if (url.searchParams.get('from')) {
-    const fromDate = new Date(url.searchParams.get('from')!);
-    if (isNaN(fromDate.getTime())) {
+    const fromDate = dayjs(url.searchParams.get('from'));
+    if (!fromDate.isValid()) {
       return NextResponse.json({ error: 'Invalid from date' }, { status: 400 });
     }
-    from = fromDate.toISOString().slice(0, 10);
+    from = fromDate.format('YYYY-MM-DD');
   }
 
   if (url.searchParams.get('to')) {
-    const toDate = new Date(url.searchParams.get('to')!);
-    if (isNaN(toDate.getTime())) {
+    const toDate = dayjs(url.searchParams.get('to'));
+    if (!toDate.isValid()) {
       return NextResponse.json({ error: 'Invalid to date' }, { status: 400 });
     }
-    to = toDate.toISOString().slice(0, 10);
+    to = toDate.format('YYYY-MM-DD');
   }
-
   try {
     const result = await sql`
     SELECT 
@@ -95,15 +109,14 @@ export const POST = async (request: NextRequest) => {
         } else {
           checkInStatus = 'ON_TIME';
         }
-        const newAttendance =
-          await sql`INSERT INTO AttendanceTable (employee_id, attendance_date, check_in_time, check_in_status) VALUES (${validation.data.employee_id}, ${currentDate}, ${currentTime}, ${checkInStatus})`;
+
+        await sql`INSERT INTO AttendanceTable (employee_id, attendance_date, check_in_time, check_in_status) VALUES (${validation.data.employee_id}, ${currentDate}, ${currentTime}, ${checkInStatus})`;
         return NextResponse.json(
-          { message: 'Attendance record created', result: newAttendance },
+          { message: 'Attendance record created' },
           { status: 200 }
         );
       }
     } catch (error) {
-      console.log(error, { eror: 'Failed to fetch the current date and time' });
       return NextResponse.json(
         { eror: 'Failed to fetch the current date and time' },
         { status: 500 }
@@ -114,10 +127,9 @@ export const POST = async (request: NextRequest) => {
       { status: 400 }
     );
   } catch (error) {
-    console.error(error);
     return NextResponse.json(
-      { error: 'Internal Server eror' },
-      { status: 500 }
+      { error: 'Employee ID is required' },
+      { status: 400 }
     );
   }
 };
