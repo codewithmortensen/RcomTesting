@@ -10,7 +10,7 @@ import {
 const Profile = () => {
   return (
     <div>
-      <form action='' className='space-y-4'>
+      <form className='space-y-4'>
         <div className='space-y-1'>
           <Label htmlFor='first_name'>First Name</Label>
           <Input id='first_name' />

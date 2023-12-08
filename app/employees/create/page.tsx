@@ -25,7 +25,8 @@ function EmployeeFormTabs() {
             <CardHeader>
               <CardTitle>User Profile</CardTitle>
               <CardDescription>
-                Make changes to your account here. Click save when you're done.
+                Make changes to your account here. Click save when you&apost;re
+                done.
               </CardDescription>
             </CardHeader>
             <CardContent className='space-y-2'>
@@ -41,7 +42,8 @@ function EmployeeFormTabs() {
             <CardHeader>
               <CardTitle>Password</CardTitle>
               <CardDescription>
-                Change your password here. After saving, you'll be logged out.
+                Change your password here. After saving, you&apost;ll be logged
+                out.
               </CardDescription>
             </CardHeader>
             <CardContent className='space-y-2'>
