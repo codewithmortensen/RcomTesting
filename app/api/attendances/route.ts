@@ -111,7 +111,6 @@ export const POST = async (request: NextRequest) => {
         }
 
         await sql`INSERT INTO AttendanceTable (employee_id, attendance_date, check_in_time, check_in_status) VALUES (${validation.data.employee_id}, ${currentDate}, ${currentTime}, ${checkInStatus})`;
-        // get the newly created attendance record fir the employee and rethrn it
 
         const newAttendance = await sql`
         SELECT 
@@ -120,17 +119,17 @@ export const POST = async (request: NextRequest) => {
           pf.last_name,
           att.check_in_status,
           att.attendance_date
-      FROM 
-        AttendanceTable att
-      JOIN 
-        EmployeeTable em USING (employee_id)
-      JOIN 
-        ProfileTable pf USING (profile_id)
-      WHERE 
-        em.employee_id = ${validation.data.employee_id} 
-      ORDER BY 
-        att.attendance_date DESC 
-      LIMIT 1`;
+        FROM 
+          AttendanceTable att
+        JOIN 
+          EmployeeTable em USING (employee_id)
+        JOIN 
+          ProfileTable pf USING (profile_id)
+        WHERE 
+          em.employee_id = ${validation.data.employee_id} 
+        ORDER BY 
+          att.attendance_date DESC 
+        LIMIT 1`;
 
         return NextResponse.json(
           {
@@ -148,7 +147,7 @@ export const POST = async (request: NextRequest) => {
     }
     return NextResponse.json(
       { message: 'Attendance record already exists for today' },
-      { status: 400 }
+      { status: 409 }
     );
   } catch (error) {
     return NextResponse.json(
