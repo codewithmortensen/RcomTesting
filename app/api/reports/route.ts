@@ -1,28 +1,38 @@
 import { sql } from '@/app/utils/query';
+import dayjs from 'dayjs';
 import { NextRequest, NextResponse } from 'next/server';
 
 export const GET = async (request: NextRequest) => {
   const url = new URL(request.url);
 
-  let from = new Date(Date.now() - 7 * 24 * 60 * 60 * 1000)
-    .toISOString()
-    .slice(0, 10); // a week ago
-  let to = new Date().toISOString().slice(0, 10);
+  let currentDate;
+  try {
+    const response = await fetch(
+      'http://worldtimeapi.org/api/timezone/America/Port-au-Prince'
+    );
+    const data = await response.json();
+    currentDate = dayjs(data.datetime);
+  } catch (error) {
+    currentDate = dayjs();
+  }
+
+  let from = currentDate.subtract(7, 'day').format('YYYY-MM-DD'); // a week ago
+  let to = currentDate.format('YYYY-MM-DD');
 
   if (url.searchParams.get('from')) {
-    const fromDate = new Date(url.searchParams.get('from')!);
-    if (isNaN(fromDate.getTime())) {
+    const fromDate = dayjs(url.searchParams.get('from'));
+    if (!fromDate.isValid()) {
       return NextResponse.json({ error: 'Invalid from date' }, { status: 400 });
     }
-    from = fromDate.toISOString().slice(0, 10);
+    from = fromDate.format('YYYY-MM-DD');
   }
 
   if (url.searchParams.get('to')) {
-    const toDate = new Date(url.searchParams.get('to')!);
-    if (isNaN(toDate.getTime())) {
+    const toDate = dayjs(url.searchParams.get('to'));
+    if (!toDate.isValid()) {
       return NextResponse.json({ error: 'Invalid to date' }, { status: 400 });
     }
-    to = toDate.toISOString().slice(0, 10);
+    to = toDate.format('YYYY-MM-DD');
   }
 
   try {
