@@ -1,5 +1,5 @@
 import dayjs from 'dayjs';
-import SuccessCard from './attendances/new/SuccessCard';
+import CheckInSuccessToast from './attendances/new/SuccessCard';
 
 const HomePage = async () => {
   const response = await fetch(

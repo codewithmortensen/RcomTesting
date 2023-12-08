@@ -82,7 +82,7 @@ export const POST = async (request: NextRequest) => {
       await sql`SELECT EXISTS(SELECT 1 FROM EmployeeTable WHERE employee_id = ${validation.data.employee_id})`;
     if (!employee[0].exists) {
       return NextResponse.json(
-        { message: 'Employee does not exist' },
+        { message: 'Invalid Employee ID' },
         { status: 400 }
       );
     }

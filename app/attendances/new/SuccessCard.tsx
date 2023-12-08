@@ -1,20 +1,13 @@
 'use client';
-import { CheckInStatus } from '@/app/types/definitions';
-import {
-  Card,
-  CardContent,
-  CardDescription,
-  CardFooter,
-  CardHeader,
-  CardTitle,
-} from '@/components/ui/card';
+import { CheckInStatus, CheckOutStatus } from '@/app/types/definitions';
 import { cn } from '@/lib/utils';
+import dayjs from 'dayjs';
 import { Source_Code_Pro } from 'next/font/google';
 import CheckInStatusBadge from '../components/CheckInStatus';
-import dayjs from 'dayjs';
+import CheckOutStatusBadge from '../components/CheckOutStatus';
 const code = Source_Code_Pro({ subsets: ['latin'] });
 
-interface SuccessCardProps {
+interface CheckInCardProps {
   attendance_date: Date;
   attendance_id: number;
   check_in_status: CheckInStatus;
@@ -23,10 +16,10 @@ interface SuccessCardProps {
 }
 
 interface AttendanceProps {
-  attendance: SuccessCardProps;
+  attendance: CheckInCardProps;
 }
 
-const SuccessCard = ({ attendance }: AttendanceProps) => {
+export const CheckInSuccessToast = ({ attendance }: AttendanceProps) => {
   return (
     <div>
       <p className={cn(code.className, 'font-bold antialiased mb-1')}>
@@ -34,10 +27,36 @@ const SuccessCard = ({ attendance }: AttendanceProps) => {
       </p>
 
       <p className='text-sm font-medium text-gray-500'>
-        {dayjs(attendance.attendance_date).format('dddd, MMMM D, YYYY')}
+        Check In Successfully !
       </p>
       <CheckInStatusBadge status={attendance.check_in_status} />
     </div>
   );
 };
-export default SuccessCard;
+
+interface CheckOutProps {
+  attendance_date: Date;
+  attendance_id: number;
+  check_out_status: CheckOutStatus;
+  first_name: string;
+  last_name: string;
+}
+
+interface CheckOutCardProps {
+  attendance: CheckOutProps;
+}
+
+export const CheckOutSuccessToast = ({ attendance }: CheckOutCardProps) => {
+  return (
+    <div>
+      <p className={cn(code.className, 'font-bold antialiased mb-1')}>
+        {attendance.first_name} {attendance.last_name}
+      </p>
+
+      <p className='text-sm font-medium text-gray-500'>
+        Check Out Successfully !
+      </p>
+      <CheckOutStatusBadge status={attendance.check_out_status} />
+    </div>
+  );
+};

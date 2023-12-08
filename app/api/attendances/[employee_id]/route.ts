@@ -44,7 +44,10 @@ export const PATCH = async (
           await sql`SELECT EXISTS(SELECT 1 FROM AttendanceTable WHERE employee_id = ${validation.data.employee_id} AND attendance_date = ${currentDate} AND check_out_time IS NOT NULL)`;
         if (checkOut[0].exists) {
           return NextResponse.json(
-            { message: 'Employee has already checked out' },
+            {
+              message: `You've already Ckecked in & Checked Out!`,
+              isCheckOut: true,
+            },
             { status: 400 }
           );
         } else {

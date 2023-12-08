@@ -10,7 +10,8 @@ import 'react-toastify/dist/ReactToastify.css';
 import dynamic from 'next/dynamic';
 import { useState } from 'react';
 import ButtonSpinner from './ButtonSpinner';
-import SuccessCard from './SuccessCard';
+
+import { CheckInSuccessToast, CheckOutSuccessToast } from './SuccessCard';
 import { useSubmitAttendance } from './hook/useSubmitAttendace';
 const TimeCard = dynamic(() => import('./TimeCard'), { ssr: false });
 
@@ -23,22 +24,46 @@ export default function Component() {
     try {
       setLoading(true);
       const response = await axios.post('/api/attendances/', data);
+
       if (response.status === 201) {
         if (response.data.attendance.first_name) {
           setLoading(false);
           reset();
-          toast(<SuccessCard attendance={response.data.attendance} />);
+          toast.success(
+            <CheckInSuccessToast attendance={response.data.attendance} />
+          );
         }
       }
     } catch (error: unknown) {
       setLoading(false);
+
       if (error instanceof AxiosError) {
-        reset();
-        toast.error(error.response?.data.message);
+        if (error.response?.status === 409) {
+          try {
+            const patchResponse = await axios.patch(
+              `/api/attendances/${data.employee_id}`,
+              data
+            );
+            toast.success(
+              <CheckOutSuccessToast
+                attendance={patchResponse.data.attendance}
+              />
+            );
+          } catch (error: unknown) {
+            if (error instanceof AxiosError) {
+              if (error.response?.status === 400) {
+                toast.error(error.response.data.message);
+              }
+            }
+          }
+        }
+        if (error.response?.status === 400) {
+          toast.error(error.response.data.message);
+          console.log(error.response.data.message);
+        }
       }
     }
   };
-
   return (
     <section className='w-full relative'>
       <ToastContainer position='top-left' />
