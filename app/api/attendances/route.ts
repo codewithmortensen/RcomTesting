@@ -111,9 +111,33 @@ export const POST = async (request: NextRequest) => {
         }
 
         await sql`INSERT INTO AttendanceTable (employee_id, attendance_date, check_in_time, check_in_status) VALUES (${validation.data.employee_id}, ${currentDate}, ${currentTime}, ${checkInStatus})`;
+        // get the newly created attendance record fir the employee and rethrn it
+
+        const newAttendance = await sql`
+        SELECT 
+          att.attendance_id,
+          pf.first_name,
+          pf.last_name,
+          att.check_in_status,
+          att.attendance_date
+      FROM 
+        AttendanceTable att
+      JOIN 
+        EmployeeTable em USING (employee_id)
+      JOIN 
+        ProfileTable pf USING (profile_id)
+      WHERE 
+        em.employee_id = ${validation.data.employee_id} 
+      ORDER BY 
+        att.attendance_date DESC 
+      LIMIT 1`;
+
         return NextResponse.json(
-          { message: 'Attendance record created' },
-          { status: 200 }
+          {
+            message: 'Attendance record created',
+            attendance: newAttendance[0],
+          },
+          { status: 201 }
         );
       }
     } catch (error) {
