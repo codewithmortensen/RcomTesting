@@ -4,8 +4,7 @@ import { EmployeeIdData } from '@/app/types/definitions';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import axios, { AxiosError } from 'axios';
-import { ToastContainer, toast } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';
+import { toast } from 'react-toastify';
 
 import dynamic from 'next/dynamic';
 import { useState } from 'react';
@@ -66,8 +65,6 @@ export default function Component() {
   };
   return (
     <section className='w-full relative'>
-      <ToastContainer position='top-left' />
-
       <div className='container px-4 md:px-6 flex justify-center items-center h-screen'>
         <div className='absolute top-5 right-20'>
           <TimeCard />

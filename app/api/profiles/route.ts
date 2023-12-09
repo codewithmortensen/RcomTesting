@@ -8,9 +8,9 @@ function generateProfileId() {
 
 export const POST = async (request: NextRequest) => {
   const body = await request.json();
-  //   if (body.birthDate) {
-  //     body.birthDate = new Date(body.birthDate);
-  //   }
+  if (body.birthDate) {
+    body.birthDate = new Date(body.birthDate);
+  }
 
   const validation = profileSchema.safeParse(body);
   if (!validation.success) {
