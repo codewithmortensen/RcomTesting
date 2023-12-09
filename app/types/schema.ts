@@ -6,29 +6,27 @@ export const datePickerSchema = z.object({
     from: z.date({ required_error: 'end date is required' }),
   }),
 });
+
 export const profileSchema = z.object({
   firstName: z
-    .string({ required_error: 'first name is required' })
-    .min(3, { message: 'first name is Invalid' }),
+    .string()
+    .min(3, { message: 'first name should be atleast 3 characters' })
+    .max(50, { message: 'first name should be less than 50 characters' }),
   lastName: z
-    .string({ required_error: 'last name is required' })
-    .min(3, { message: 'last name is is Invalid' }),
+    .string()
+    .min(3, { message: 'last name should be atleast 3 characters' })
+    .max(50, { message: 'last name should be less than 50 characters' }),
   birthDate: z
-    .date({ required_error: 'birth date is required' })
-    .refine((date) => date !== undefined, {
-      message: 'birth date is required',
-    }),
-  gender: z
-    .enum(['MALE', 'FEMALE', 'OTHER'])
-    .refine((value) => value !== undefined, {
-      message: 'Gender is required and must be either MALE, FEMALE, or OTHER',
-    }),
-  phone: z
-    .string({ required_error: 'phone number is required' })
-    .min(10, { message: 'phone number is invalid' }),
-  email: z
-    .string({ required_error: 'email is required' })
-    .email({ message: 'email is invalid' }),
+    .date()
+    .min(new Date('1980-01-01'), { message: 'Enter a valid birthdate' })
+    .max(new Date('2003-01-01'), { message: 'Enter a valid birthdate' }),
+  gender: z.enum(['FEMALE', 'MALE', 'OTHER'], {
+    errorMap: () => {
+      return { message: 'Please select a gender' };
+    },
+  }),
+  phone: z.string().min(8, { message: 'phone number is not valid' }),
+  email: z.string().min(10, { message: 'This is not a valid email' }),
 });
 
 export const employeeIdSchema = z.object({

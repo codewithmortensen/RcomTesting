@@ -66,7 +66,8 @@ export const PATCH = async (
           await sql`UPDATE AttendanceTable 
 			SET 
 			  check_out_time = ${currentTime},
-			  check_out_status = ${checkOutStatus}
+			  check_out_status = ${checkOutStatus},
+        work_day_status = 'PRESENT'
 			WHERE employee_id = ${validation.data.employee_id} AND attendance_date = ${currentDate}`;
 
           const newAttendance = await sql`

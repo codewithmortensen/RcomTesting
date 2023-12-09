@@ -1,7 +1,6 @@
 'use client';
 import { CheckInStatus, CheckOutStatus } from '@/app/types/definitions';
 import { cn } from '@/lib/utils';
-import dayjs from 'dayjs';
 import { Source_Code_Pro } from 'next/font/google';
 import CheckInStatusBadge from '../components/CheckInStatus';
 import CheckOutStatusBadge from '../components/CheckOutStatus';

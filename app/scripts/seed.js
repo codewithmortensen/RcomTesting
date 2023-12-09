@@ -5,6 +5,7 @@ CREATE TYPE WorkDayStatus AS ENUM ('ABSENT',  'DAY_OFF', 'PRESENT');
 CREATE TYPE Gender AS ENUM ('FEMALE', 'MALE', 'OTHER');
 CREATE TYPE EmployeeStatus AS ENUM ('ACTIVE', 'INACTIVE', 'SUSPENDED');
 CREATE TYPE Role AS ENUM ('MANAGER', 'SUPERVISOR', 'EMPLOYEE', 'EXECUTIVE');
+CREATE TYPE WeekDay AS ENUM ('SUNDAY', 'MONDAY', 'TUESDAY', 'WEDNESDAY', 'THURSDAY', 'FRIDAY','SATURDAY');
 
 CREATE TABLE Address (
     address_id  SERIAL PRIMARY KEY,
@@ -38,6 +39,7 @@ CREATE TABLE EmployeeTable (
     end_shift TIME,
     reports_to INTEGER NULL,
     role Role NOT NULL,
+    day_off WeekDay ,
     FOREIGN KEY (profile_id) REFERENCES ProfileTable(profile_id),
     FOREIGN KEY (reports_to) REFERENCES EmployeeTable(employee_id)
 );
