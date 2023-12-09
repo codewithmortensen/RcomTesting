@@ -8,6 +8,7 @@ export const datePickerSchema = z.object({
 });
 
 export const profileSchema = z.object({
+  profileId: z.number({ required_error: 'profile id is required' }),
   firstName: z
     .string()
     .min(3, { message: 'first name should be atleast 3 characters' })

@@ -5,9 +5,7 @@ import { useForm } from 'react-hook-form';
 import { ProfileData } from './types/definitions';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { profileSchema } from './types/schema';
-function generateProfileId() {
-  return Math.floor(100000 + Math.random() * 900000);
-}
+
 export default function Example() {
   const {
     register,
@@ -19,7 +17,6 @@ export default function Example() {
 
   const onSubmit = (data: ProfileData) => {
     console.log(data);
-    console.log(generateProfileId());
   };
   return (
     <div className='max-w-[40rem] mx-auto mt-10'>
