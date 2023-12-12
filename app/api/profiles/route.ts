@@ -41,3 +41,11 @@ export const POST = async (request: NextRequest) => {
     );
   }
 };
+
+export const GET = async (request: NextRequest) => {
+  try {
+    const profiles =
+      await sql`SELECT ProfileTable.profile_id,  CONCAT(First_name,' ', last_name) AS full_name FROM ProfileTable  LEFT JOIN EmployeeTable  ON ProfileTable.profile_id = EmployeeTable.profile_id WHERE employee_id IS NULL`;
+    return NextResponse.json(profiles);
+  } catch (error) {}
+};

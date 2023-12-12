@@ -10,7 +10,8 @@ import { linkItems } from './links';
 import classnames from 'classnames';
 import { usePathname } from 'next/navigation';
 
-const style = `flex items-center gap-3 rounded-lg px-3 py-2 text-gray-500 transition-all hover:text-gray-900 dark:text-gray-400 dark:hover:text-gray-50 hover:bg-gray-200 dark:hover:bg-gray-700
+const style = `
+flex items-center gap-3 rounded-lg px-3 py-2 text-gray-500 transition-all hover:text-gray-900 dark:text-gray-400 dark:hover:text-gray-50 hover:bg-gray-200 dark:hover:bg-gray-700
 `;
 
 export default function SideNav() {
@@ -51,7 +52,7 @@ export default function SideNav() {
 
         <div className='flex flex-col gap-4'>
           <Link
-            className={cn('mt-auto', buttonVariants())}
+            className={cn('mt-auto', buttonVariants({ variant: 'outline' }))}
             href='/management/profiles'>
             <PlusIcon className='h-4 w-4 mr-2' />
             <span>Add Employee</span>

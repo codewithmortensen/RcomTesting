@@ -5,7 +5,6 @@ import { profileSchema } from '@/app/types/schema';
 import { Button } from '@/components/ui/button';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useForm } from 'react-hook-form';
-import { HandleSubmitProfile } from '../create/profile';
 
 const CreateProfilePage = () => {
   const {
@@ -22,7 +21,7 @@ const CreateProfilePage = () => {
     <div className='max-w-[40rem] mx-auto mt-10'>
       <form
         onSubmit={handleSubmit((data) => {
-          HandleSubmitProfile(data);
+          // HandleSubmitProfile(data);
           reset();
         })}>
         <div className='space-y-12'>

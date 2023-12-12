@@ -5,6 +5,7 @@ const ManagementLayout = ({ children }: PropsWithChildren) => {
   return (
     <div className='flex w-screen relative gap-5'>
       <SideNav />
+
       <main className='flex-1 overflow-hidden m-2 md:mr-10 mt-10'>
         {children}
       </main>

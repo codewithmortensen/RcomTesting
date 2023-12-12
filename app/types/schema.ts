@@ -34,8 +34,9 @@ export const employeeIdSchema = z.object({
 });
 
 export const employeeSchema = z.object({
-  hire_date: z.date({ required_error: 'hire date is required' }),
-  salary: z.number({ required_error: 'salary is required' }),
+  profile_id: z.string({ required_error: 'Profile Is required' }),
+  hire_date: z.string({ required_error: 'hire date is required' }),
+  salary: z.string({ required_error: 'salary is required' }),
   department: z.string({ required_error: 'department is required' }),
   job_title: z.string({ required_error: 'job title is required' }),
   status: z.enum(['ACTIVE', 'INACTIVE', 'SUSPENDED'], {
@@ -43,8 +44,8 @@ export const employeeSchema = z.object({
       return { message: 'Please select a status' };
     },
   }),
-  start_shift: z.date({ required_error: 'start shift is required' }),
-  end_shift: z.date({ required_error: 'end shift is required' }),
+  start_shift: z.string({ required_error: 'start shift is required' }),
+  end_shift: z.string({ required_error: 'end shift is required' }),
   role: z.enum(['EMPLOYEE', 'MANAGER', 'SUPERVISOR', 'EXECUTIVE'], {
     errorMap: () => {
       return { message: 'Please select a role' };
