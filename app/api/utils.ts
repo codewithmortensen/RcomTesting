@@ -11,3 +11,7 @@ async function getData() {
 export default async function Page() {
   const data = await getData();
 }
+
+export function generateId() {
+  return Math.floor(100000 + Math.random() * 900000);
+}

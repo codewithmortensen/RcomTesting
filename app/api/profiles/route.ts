@@ -1,10 +1,7 @@
 import { profileSchema } from '@/app/types/schema';
 import { sql } from '@/app/utils/query';
 import { NextRequest, NextResponse } from 'next/server';
-
-function generateProfileId() {
-  return Math.floor(100000 + Math.random() * 900000);
-}
+import { generateId } from '../utils';
 
 export const POST = async (request: NextRequest) => {
   const body = await request.json();
@@ -24,7 +21,7 @@ export const POST = async (request: NextRequest) => {
     await sql`INSERT INTO ProfileTable
 	(profile_id, first_name, last_name, birth_date, gender, phone_number, email)
 	VALUES(
-	  ${generateProfileId()},
+	  ${generateId()},
 	  ${validation.data.firstName},
 	  ${validation.data.lastName},
 	  ${validation.data.birthDate},
