@@ -66,39 +66,36 @@ export default function Component() {
   return (
     <section className='w-full relative'>
       <div className='container px-4 md:px-6 flex justify-center items-center h-[90vh]'>
-        <div className='absolute top-5 right-20'>
+        <div className='absolute top-5 right-30 md:right-20'>
           <TimeCard />
         </div>
         <div className='flex flex-col items-center space-y-4 '>
           <div className='space-y-2 mb-10'>
-            <TextGradient classname='text-4xl lg:text-8xl font-black text-center'>
+            <TextGradient classname='text-3xl lg:text-7xl xl:text-8xl font-black text-center'>
               Employee Attendance
             </TextGradient>
           </div>
 
-          <div className='w-full max-w-sm space-y-2'>
-            <form
-              className='flex space-x-2 justify-between'
-              onSubmit={handleSubmit(handleFormSubmit)}>
-              <div>
-                <Input
-                  className='w-[20rem] flex-2 mb-3'
-                  placeholder='Scan your ID or Add it manually'
-                  type='number'
-                  {...register('employee_id', { valueAsNumber: true })}
-                />
-                {errors.employee_id && (
-                  <p className='text-xs font-medium text-red-600 ml-1'>
-                    {/* {errors.employee_id.message} */}
-                    Employee ID is required
-                  </p>
-                )}
-              </div>
-              <Button type='submit'>
-                {loading && <ButtonSpinner />} Check In
-              </Button>
-            </form>
-          </div>
+          <form
+            className='flex space-x-2 justify-between max-w-[20rem] mx-auto'
+            onSubmit={handleSubmit(handleFormSubmit)}>
+            <div>
+              <Input
+                className='w-[10rem] md:w-[20rem] flex-2 mb-3'
+                placeholder='Scan your ID or Add it manually'
+                type='number'
+                {...register('employee_id', { valueAsNumber: true })}
+              />
+              {errors.employee_id && (
+                <p className='text-xs font-medium text-red-600 ml-1'>
+                  Employee ID is required
+                </p>
+              )}
+            </div>
+            <Button type='submit'>
+              {loading && <ButtonSpinner />} Check In
+            </Button>
+          </form>
         </div>
       </div>
     </section>
