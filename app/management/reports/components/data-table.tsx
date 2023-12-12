@@ -56,7 +56,7 @@ export function DataTable() {
                   <TableHead
                     key={header.id}
                     colSpan={header.colSpan}
-                    className='text-black whitespace-nowrap text-xs'>
+                    className='whitespace-nowrap text-xs'>
                     {header.isPlaceholder
                       ? null
                       : flexRender(

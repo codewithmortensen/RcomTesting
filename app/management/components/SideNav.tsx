@@ -16,7 +16,7 @@ const style = `flex items-center gap-3 rounded-lg px-3 py-2 text-gray-500 transi
 export default function SideNav() {
   const currentPath = usePathname();
   return (
-    <div className='min-h-[90vh] flex max-w-[15rem]'>
+    <div className='min-h-[90vh] flex max-w-[15rem] shadow-md rounded-sm'>
       <div className='w-[280px] h-[90vh] dark:bg-black dark:text-white p-4 overflow-auto flex flex-col 	 justify-between  rounded-sm'>
         <div className='flex flex-col gap-4'>
           <Link href='/management' className={cn(style)}>
