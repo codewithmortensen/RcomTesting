@@ -21,7 +21,7 @@ const mobileNavMenu = () => {
         )}>
         <Link href='/' className='flex gap-2 items-center'>
           <FcEngineering />
-          NextTask
+          R-com
         </Link>
       </p>
       <div className='flex items-center gap-3'>

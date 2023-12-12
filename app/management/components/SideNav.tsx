@@ -29,7 +29,7 @@ export default function SideNav() {
               key={item.value}
               href={item.value}
               className={classnames(style, {
-                'bg-cyan-400 text-white': currentPath === item.value,
+                'dark:bg-white text-white bg-black': currentPath === item.value,
               })}>
               {item.label === 'Employees' ? (
                 <Fragment>

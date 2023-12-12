@@ -39,7 +39,7 @@ const MobileSheet = () => {
             )}>
             <Link href='/' className='flex gap-2 items-center'>
               <FcEngineering />
-              NextTask
+              R-com
             </Link>
           </p>
           <SheetDescription className='text-left'>
