@@ -1,0 +1,86 @@
+const HomePage = () => {
+  return <div>HomePage</div>;
+};
+export default HomePage;
+<div className='space-y-5'>
+          <article className='grid grid-cols-2 gap-5'>
+            <div className='space-y-2'>
+              <Input
+                type='text'
+                placeholder='Job Title'
+                {...register('job_title')}
+              />
+              {errors.job_title && (
+                <p className='text-red-600 text-xs font-medium'>
+                  {errors.job_title?.message}
+                </p>
+              )}
+            </div>
+            <div className='space-y-2'>
+              <Input
+                type='text'
+                placeholder='Department'
+                {...register('department')}
+              />
+            </div>
+          </article>
+          <article className='grid grid-cols-2 gap-5 my-5'>
+            <div className='space-y-2'>
+              <Select {...register('role')}>
+                <SelectTrigger>
+                  <SelectValue placeholder='Role' />
+                </SelectTrigger>
+                <SelectContent>
+                  {roles.map((role) => (
+                    <SelectItem key={role.value} value={role.value}>
+                      {role.label}
+                    </SelectItem>
+                  ))}
+                </SelectContent>
+              </Select>
+            </div>
+
+            <div className='space-y-2'>
+              <Select {...register('status')}>
+                <SelectTrigger>
+                  <SelectValue placeholder='Status' />
+                </SelectTrigger>
+                <SelectContent>
+                  {statues.map((status) => (
+                    <SelectItem key={status.value} value={status.value}>
+                      {status.label}
+                    </SelectItem>
+                  ))}
+                </SelectContent>
+              </Select>
+            </div>
+          </article>
+
+          <article className='grid grid-cols-2 gap-5'>
+            <div className='space-y-2'>
+              <Input
+                type='number'
+                placeholder='salary'
+                {...register('salary')}
+              />
+            </div>
+
+            <div className='space-y-2'>
+              <Input type='date' {...register('hire_date')} />
+            </div>
+          </article>
+
+          <article className='grid grid-cols-2 gap-5'>
+            <div className='space-y-2'>
+              <label className='text-gray-500 text-xs'>Start Shift</label>
+              <Input type='time' {...register('start_shift')} />
+            </div>
+            <div className='space-y-2'>
+              <label className='text-gray-500 text-xs'>End Shift</label>
+              <Input type='time' {...register('end_shift')} />
+            </div>
+          </article>
+        </div>
+        <Button type='submit' className='my-5 w-full'>
+          Submit
+        {/* </Button> */}
