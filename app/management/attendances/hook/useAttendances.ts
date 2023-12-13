@@ -10,19 +10,18 @@ interface AttendanceQueryParams {
   to?: Date;
 }
 
-export const useAttendances = (query: AttendanceQueryParams) => {
+export const useAttendances = (query?: AttendanceQueryParams) => {
   return useQuery({
-    queryKey: query.from ? ['attendances', query] : ['attendances'],
+    queryKey: query?.from ? ['attendances', query] : ['attendances'],
     queryFn: () =>
       axios
         .get<EmployeeAttendance[]>('/api/attendances', {
           params: {
-            to: query.to,
-            from: query.from,
+            to: query?.to,
+            from: query?.from,
           },
         })
         .then((res) => res.data),
-    staleTime: 1000 * 60 * 60 * 6,
     placeholderData: keepPreviousData,
   });
 };

@@ -7,15 +7,15 @@ interface AttendanceQueryParams {
   from?: Date;
   to?: Date;
 }
-export const useAttendanceReport = (query: AttendanceQueryParams) => {
+export const useAttendanceReport = (query?: AttendanceQueryParams) => {
   return useQuery({
-    queryKey: query.from ? ['reports', query] : ['reports'],
+    queryKey: query?.from ? ['reports', query] : ['reports'],
     queryFn: () =>
       axios
         .get<AttendanceReport[]>('/api/reports', {
           params: {
-            to: query.to,
-            from: query.from,
+            to: query?.to,
+            from: query?.from,
           },
         })
         .then((res) => res.data),

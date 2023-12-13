@@ -1,17 +1,39 @@
 'use client';
+
+interface Analitics {
+  total_attendance: string | JSX.Element;
+  absences: string | JSX.Element;
+  late_arrivals: string | JSX.Element;
+  early_departures: string | JSX.Element;
+}
+
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
-import {
-  Table,
-  TableBody,
-  TableCell,
-  TableHead,
-  TableHeader,
-  TableRow,
-} from '@/components/ui/table';
 import { ResponsiveBar } from '@nivo/bar';
 import { ClockIcon, MinusCircleIcon, UsersIcon } from 'lucide-react';
+import RecentActivities from './attendances/components/RecentActivities';
+import { useQuery } from '@tanstack/react-query';
+import axios from 'axios';
+import { Suspense } from 'react';
+import LoadingIcon from './attendances/components/LoadingIcon';
 
-export default function Component() {
+export default function Analitics() {
+  const { data, isLoading } = useQuery<Analitics[]>({
+    queryKey: ['analitics'],
+    queryFn: () =>
+      axios.get<Analitics[]>('/api/analitics').then((res) => res.data),
+  });
+
+  let analitics: Analitics = {
+    total_attendance: isLoading ? <LoadingIcon /> : '',
+    absences: isLoading ? <LoadingIcon /> : '',
+    late_arrivals: isLoading ? <LoadingIcon /> : '',
+    early_departures: isLoading ? <LoadingIcon /> : '',
+  };
+
+  if (data !== undefined) {
+    analitics = data[0];
+  }
+
   return (
     <div className='flex flex-col w-full '>
       <main className='flex min-h-[calc(80vh_-_theme(spacing.16))] flex-1 flex-col gap-4 p-4 md:gap-8 md:p-10 pb-0'>
@@ -24,7 +46,9 @@ export default function Component() {
               <UsersIcon className='w-4 h-4 text-gray-500 dark:text-gray-400' />
             </CardHeader>
             <CardContent>
-              <div className='text-2xl font-bold'>3456</div>
+              <div className='text-2xl font-bold'>
+                {analitics.total_attendance}
+              </div>
               <p className='text-xs text-gray-500 dark:text-gray-400'>
                 +10.1% from last month
               </p>
@@ -36,7 +60,9 @@ export default function Component() {
               <MinusCircleIcon className='w-4 h-4 text-gray-500 dark:text-gray-400' />
             </CardHeader>
             <CardContent>
-              <div className='text-2xl font-bold'>110</div>
+              <Suspense fallback={0}>
+                <div className='text-2xl font-bold'>{analitics.absences}</div>
+              </Suspense>
               <p className='text-xs text-gray-500 dark:text-gray-400'>
                 +2.2% from last month
               </p>
@@ -50,7 +76,9 @@ export default function Component() {
               <ClockIcon className='w-4 h-4 text-gray-500 dark:text-gray-400' />
             </CardHeader>
             <CardContent>
-              <div className='text-2xl font-bold'>89</div>
+              <div className='text-2xl font-bold'>
+                {analitics.late_arrivals}
+              </div>
               <p className='text-xs text-gray-500 dark:text-gray-400'>
                 -5% from last month
               </p>
@@ -64,7 +92,9 @@ export default function Component() {
               <ClockIcon className='w-4 h-4 text-gray-500 dark:text-gray-400' />
             </CardHeader>
             <CardContent>
-              <div className='text-2xl font-bold'>120</div>
+              <div className='text-2xl font-bold'>
+                {analitics.early_departures}
+              </div>
               <p className='text-xs text-gray-500 dark:text-gray-400'>
                 +1.5% from last month
               </p>
@@ -89,36 +119,7 @@ export default function Component() {
               </CardTitle>
             </CardHeader>
             <CardContent>
-              <Table>
-                <TableHeader>
-                  <TableRow>
-                    <TableHead className='w-[100px]'>Employee</TableHead>
-                    <TableHead>Date</TableHead>
-                    <TableHead>Time In</TableHead>
-                    <TableHead>Time Out</TableHead>
-                  </TableRow>
-                </TableHeader>
-                <TableBody>
-                  <TableRow>
-                    <TableCell className='font-medium'>John Doe</TableCell>
-                    <TableCell>Dec 12, 2023</TableCell>
-                    <TableCell>08:00 AM</TableCell>
-                    <TableCell>05:00 PM</TableCell>
-                  </TableRow>
-                  <TableRow>
-                    <TableCell className='font-medium'>Jane Smith</TableCell>
-                    <TableCell>Dec 12, 2023</TableCell>
-                    <TableCell>08:30 AM</TableCell>
-                    <TableCell>05:00 PM</TableCell>
-                  </TableRow>
-                  <TableRow>
-                    <TableCell className='font-medium'>David Johnson</TableCell>
-                    <TableCell>Dec 12, 2023</TableCell>
-                    <TableCell>09:00 AM</TableCell>
-                    <TableCell>05:00 PM</TableCell>
-                  </TableRow>
-                </TableBody>
-              </Table>
+              <RecentActivities />
             </CardContent>
           </Card>
         </div>
@@ -133,36 +134,32 @@ function BarChart(props: any) {
       <ResponsiveBar
         data={[
           {
-            name: 'A',
+            name: 'Mon',
             data: 111,
           },
           {
-            name: 'B',
+            name: 'Tues',
             data: 157,
           },
           {
-            name: 'C',
+            name: 'Wed',
             data: 129,
           },
           {
-            name: 'D',
+            name: 'Thurs',
             data: 187,
           },
           {
-            name: 'E',
+            name: 'Fri',
             data: 119,
           },
           {
-            name: 'F',
+            name: 'Sat',
             data: 22,
           },
           {
-            name: 'G',
+            name: 'Sun',
             data: 101,
-          },
-          {
-            name: 'H',
-            data: 83,
           },
         ]}
         keys={['data']}
@@ -183,7 +180,7 @@ function BarChart(props: any) {
           tickSize: 5,
           tickPadding: 5,
           tickRotation: 0,
-          legend: 'Name',
+          legend: 'Day',
           legendPosition: 'middle',
           legendOffset: 45,
           truncateTickAt: 0,
@@ -192,7 +189,7 @@ function BarChart(props: any) {
           tickSize: 5,
           tickPadding: 5,
           tickRotation: 0,
-          legend: 'Number',
+          legend: 'Attendance',
           legendPosition: 'middle',
           legendOffset: -45,
           truncateTickAt: 0,

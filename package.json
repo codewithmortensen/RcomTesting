@@ -38,6 +38,7 @@
     "date-fns": "^2.30.0",
     "dayjs": "^1.11.10",
     "faker": "^6.6.6",
+    "fast-sort": "^3.4.0",
     "lucide": "^0.294.0",
     "lucide-react": "^0.294.0",
     "moment": "^2.29.4",
