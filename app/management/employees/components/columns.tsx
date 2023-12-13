@@ -37,7 +37,7 @@ export const columns: ColumnDef<EmployeeProfile>[] = [
     header: ({ column }) => (
       <DataTableColumnHeader column={column} title='Employee ID' />
     ),
-    cell: ({ row }) => <div>rcom-{row.getValue('employee_id')}</div>,
+    cell: ({ row }) => <div>{row.getValue('employee_id')}</div>,
     enableSorting: false,
     enableHiding: false,
   },
@@ -76,19 +76,6 @@ export const columns: ColumnDef<EmployeeProfile>[] = [
       return (
         <div className='flex space-x-2'>
           <span>{row.getValue('gender') === 'MALE' ? 'Male' : 'Female'}</span>
-        </div>
-      );
-    },
-  },
-  {
-    accessorKey: 'email',
-    header: ({ column }) => (
-      <DataTableColumnHeader column={column} title='Email' />
-    ),
-    cell: ({ row }) => {
-      return (
-        <div className='flex space-x-2'>
-          <span>{row.getValue('email')}</span>
         </div>
       );
     },

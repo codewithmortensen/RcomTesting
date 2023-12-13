@@ -7,8 +7,16 @@ const EmloyeeProfilePage = () => {
     <div>
       <Tabs defaultValue='profile' className='mx-10'>
         <TabsList className='mb-5'>
-          <TabsTrigger value='profile'>Profile Info</TabsTrigger>
-          <TabsTrigger value='work'>Work Info</TabsTrigger>
+          <TabsTrigger
+            value='profile'
+            className='text-xs font-medium tracking-wide'>
+            Profile Info
+          </TabsTrigger>
+          <TabsTrigger
+            value='work'
+            className='text-xs font-medium tracking-wide'>
+            Work Info
+          </TabsTrigger>
         </TabsList>
         <TabsContent value='profile'>
           <CreateProfilePage />

@@ -1,16 +1,14 @@
 'use client';
-import Link from 'next/link';
-import { Button } from '@/components/ui/button';
-import { CardTitle, CardHeader, CardContent, Card } from '@/components/ui/card';
-import { ResponsiveBar } from '@nivo/bar';
+import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import {
-  TableHead,
-  TableRow,
-  TableHeader,
-  TableCell,
-  TableBody,
   Table,
+  TableBody,
+  TableCell,
+  TableHead,
+  TableHeader,
+  TableRow,
 } from '@/components/ui/table';
+import { ResponsiveBar } from '@nivo/bar';
 import { ClockIcon, MinusCircleIcon, UsersIcon } from 'lucide-react';
 
 export default function Component() {

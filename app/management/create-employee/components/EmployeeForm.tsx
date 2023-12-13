@@ -36,45 +36,35 @@ import {
   SelectTrigger,
   SelectValue,
 } from '@/components/ui/select';
-import { toast } from '@/components/ui/use-toast';
 import { CaretSortIcon, CheckIcon } from '@radix-ui/react-icons';
-import { useQuery } from '@tanstack/react-query';
-import axios from 'axios';
 import { roles, statues } from '../../employees/create/components/utils';
+
+import { Skeleton } from '@/components/ui/skeleton';
+import { useRouter } from 'next/navigation';
+import { useProfiles, useSubmitEmployee } from './hook/useSubmitEmployee';
 
 const defaultValues: Partial<EmployeeData> = {};
 
-type ProfileProps = {
-  profile_id: number;
-  full_name: string;
-};
-
 export function EmployeeForm() {
-  const { data: profiles } = useQuery({
-    queryKey: ['profiles'],
-    queryFn: () =>
-      axios.get<ProfileProps[]>('/api/profiles').then((res) => res.data),
-  });
+  const router = useRouter();
+
+  const { data: profiles, isLoading } = useProfiles();
 
   const form = useForm<EmployeeData>({
     resolver: zodResolver(employeeSchema),
     defaultValues,
   });
 
-  function onSubmit(data: EmployeeData) {
-    toast({
-      title: 'You submitted the following values:',
-      description: (
-        <pre className='mt-2 w-[340px] rounded-md bg-slate-950 p-4'>
-          <code className='text-white'>{JSON.stringify(data, null, 2)}</code>
-        </pre>
-      ),
-    });
-  }
-
   return (
     <Form {...form}>
-      <form onSubmit={form.handleSubmit(onSubmit)} className='space-y-8'>
+      <form
+        onSubmit={form.handleSubmit((data) => {
+          useSubmitEmployee(data, () => {
+            form.reset();
+            router.push('/management/employees');
+          });
+        })}
+        className='space-y-8'>
         <div>
           <FormField
             control={form.control}
@@ -104,6 +94,13 @@ export function EmployeeForm() {
                   <PopoverContent className='w-[300px] p-0'>
                     <Command>
                       <CommandInput placeholder='Search Profiles...' />
+                      {isLoading && (
+                        <>
+                          <Skeleton className='w-[280px] h-[25px] m-2' />
+                          <Skeleton className='w-[280px] h-[25px] m-2' />
+                          <Skeleton className='w-[280px] h-[25px] m-2' />
+                        </>
+                      )}
                       <CommandEmpty>No Profiles found.</CommandEmpty>
                       <CommandGroup>
                         {profiles?.map((profile) => (

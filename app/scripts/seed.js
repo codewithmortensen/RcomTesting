@@ -44,6 +44,8 @@ CREATE TABLE EmployeeTable (
     FOREIGN KEY (reports_to) REFERENCES EmployeeTable(employee_id)
 );
 
+// TODO: Profile id should be a one to one relationship with employee id
+
 CREATE TABLE AttendanceTable (
     attendance_id BIGINT SERIAL PRIMARY KEY,
     employee_id INTEGER NOT NULL,

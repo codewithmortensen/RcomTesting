@@ -1,7 +1,7 @@
 'use client';
 
 import { Badge } from '@/components/ui/badge';
-import { Button, buttonVariants } from '@/components/ui/button';
+import { buttonVariants } from '@/components/ui/button';
 import { cn } from '@/lib/utils';
 import { LayoutDashboardIcon, PlusIcon } from 'lucide-react';
 import Link from 'next/link';
@@ -18,7 +18,7 @@ export default function SideNav() {
   const currentPath = usePathname();
   return (
     <div className='min-h-[90vh] flex max-w-[15rem] shadow-md rounded-sm'>
-      <div className='w-[280px] h-[90vh] dark:bg-black dark:text-white p-4 overflow-auto flex flex-col 	 justify-between  rounded-sm'>
+      <div className='w-[280px] h-[90vh] dark:bg-black dark:text-white p-4 overflow-auto flex flex-col justify-between  rounded-sm'>
         <div className='flex flex-col gap-4'>
           <Link href='/management' className={cn(style)}>
             <LayoutDashboardIcon className='h-6 w-6' />
@@ -53,7 +53,7 @@ export default function SideNav() {
         <div className='flex flex-col gap-4'>
           <Link
             className={cn('mt-auto', buttonVariants({ variant: 'outline' }))}
-            href='/management/profiles'>
+            href='/management/create-employee'>
             <PlusIcon className='h-4 w-4 mr-2' />
             <span>Add Employee</span>
           </Link>
