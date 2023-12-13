@@ -17,6 +17,6 @@ export const navLinks: { id: number; label: string; path: string }[] = [
   {
     id: 4,
     label: 'Login',
-    path: '/login',
+    path: '/auth/login',
   },
 ];

@@ -6,7 +6,7 @@ const EmployeePage = async () => {
   const employees = await getEmployees();
   return (
     <div className=''>
-      <DataTable data={employees} columns={columns} />
+      <DataTable data={employees || []} columns={columns} />
     </div>
   );
 };
