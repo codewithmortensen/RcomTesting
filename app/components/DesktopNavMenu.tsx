@@ -4,12 +4,11 @@ import { Ephesis } from 'next/font/google';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { FcEngineering } from 'react-icons/fc';
-
 import { ColorMode } from './ColorMode';
-
 import { navLinks } from './links';
-import { cn } from './utils';
+
 import { SearchTask } from './Search';
+import { cn } from './utils';
 
 const e = Ephesis({ subsets: ['latin'], weight: '400' });
 

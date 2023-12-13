@@ -52,3 +52,16 @@ export const POST = async (request: NextRequest) => {
     );
   }
 };
+
+export const GET = async (request: NextRequest) => {
+  try {
+    const reponse = await sql`SELECT * FROM EmployeeTable`;
+    return NextResponse.json(reponse, { status: 200 });
+  } catch (error) {
+    console.log(error);
+    return NextResponse.json(
+      { message: 'Failed to fetch employees' },
+      { status: 500 }
+    );
+  }
+};

@@ -15,6 +15,7 @@ import { DataTableToolbar } from './data-table-toolbar';
 import { useAttendanceReport } from '../hook/useAttendanceReport';
 import useTableFilter from '@/app/management/attendances/hook/useTableFilter';
 import { useEffect, useState } from 'react';
+import PageLoading from '@/app/components/PageLoading';
 
 export function DataTable() {
   const [to, setTo] = useState<Date>();
@@ -32,7 +33,7 @@ export function DataTable() {
   }, [to, from, refetch]);
 
   if (isLoading) {
-    return <div>Loading...</div>;
+    return <PageLoading />;
   }
 
   return (

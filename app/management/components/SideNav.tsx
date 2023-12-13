@@ -3,18 +3,24 @@
 import { Badge } from '@/components/ui/badge';
 import { buttonVariants } from '@/components/ui/button';
 import { cn } from '@/lib/utils';
+import { useQuery } from '@tanstack/react-query';
+import axios from 'axios';
+import classnames from 'classnames';
 import { LayoutDashboardIcon, PlusIcon } from 'lucide-react';
 import Link from 'next/link';
+import { usePathname } from 'next/navigation';
 import { Fragment } from 'react';
 import { linkItems } from './links';
-import classnames from 'classnames';
-import { usePathname } from 'next/navigation';
 
 const style = `
 flex items-center gap-3 rounded-lg px-3 py-2 text-gray-500 transition-all hover:text-gray-900 dark:text-gray-400 dark:hover:text-gray-50 hover:bg-gray-200 dark:hover:bg-gray-700
 `;
 
 export default function SideNav() {
+  const { data: employees, isLoading } = useQuery({
+    queryKey: ['employees'],
+    queryFn: () => axios.get('/api/employees').then((res) => res.data),
+  });
   const currentPath = usePathname();
   return (
     <div className='min-h-[90vh] flex max-w-[15rem] shadow-md rounded-sm'>
@@ -37,7 +43,8 @@ export default function SideNav() {
                   <item.icon className='h-6 w-4' />
                   <span>{item.label}</span>
                   <Badge className='ml-auto flex h-6 w-6 shrink-0 items-center justify-center rounded-full'>
-                    6
+                    {isLoading ? '...' : null}
+                    {employees?.length}
                   </Badge>
                 </Fragment>
               ) : (
@@ -55,7 +62,7 @@ export default function SideNav() {
             className={cn('mt-auto', buttonVariants({ variant: 'outline' }))}
             href='/management/create-employee'>
             <PlusIcon className='h-4 w-4 mr-2' />
-            <span>Add Employee</span>
+            <span>Add New Employee</span>
           </Link>
         </div>
       </div>

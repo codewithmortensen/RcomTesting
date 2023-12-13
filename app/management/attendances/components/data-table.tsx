@@ -17,16 +17,21 @@ import { useAttendances } from '../hook/useAttendances';
 import useTableFilter from '../hook/useTableFilter';
 import { columns } from './columns';
 import { DataTableToolbar } from './data-table-toolbar';
+import AttendanceLoadingPage from '../loading';
 export function DataTable() {
   const [to, setTo] = useState<Date>();
   const [from, setFrom] = useState<Date>();
 
-  const { data } = useAttendances({ to, from });
+  const { data, isLoading } = useAttendances({ to, from });
 
   const { table } = useTableFilter({
     columns: columns,
     data: data !== undefined ? data : [],
   });
+
+  if (isLoading) {
+    return <AttendanceLoadingPage />;
+  }
 
   return (
     <section>

@@ -8,8 +8,3 @@ const HomePage = () => {
   );
 };
 export default HomePage;
-
-// Import useState from React
-import React, { useState } from 'react';
-
-// Initialize state variable

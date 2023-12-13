@@ -13,7 +13,6 @@ import {
 } from '@/components/ui/form';
 import { Input } from '@/components/ui/input';
 
-import { cn } from '@/app/components/utils';
 import { EmployeeData } from '@/app/types/definitions';
 import { employeeSchema } from '@/app/types/schema';
 import { Button } from '@/components/ui/button';
@@ -42,6 +41,7 @@ import { roles, statues } from '../../employees/create/components/utils';
 import { Skeleton } from '@/components/ui/skeleton';
 import { useRouter } from 'next/navigation';
 import { useProfiles, useSubmitEmployee } from './hook/useSubmitEmployee';
+import { cn } from '@/lib/utils';
 
 const defaultValues: Partial<EmployeeData> = {};
 
