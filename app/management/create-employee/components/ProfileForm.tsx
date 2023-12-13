@@ -3,184 +3,176 @@
 import { ProfileData } from '@/app/types/definitions';
 import { profileSchema } from '@/app/types/schema';
 import { Button } from '@/components/ui/button';
+import {
+  Form,
+  FormControl,
+  FormField,
+  FormItem,
+  FormLabel,
+  FormMessage,
+} from '@/components/ui/form';
+import { Input } from '@/components/ui/input';
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from '@/components/ui/select';
 import { zodResolver } from '@hookform/resolvers/zod';
+import { useRouter } from 'next/navigation';
 import { useForm } from 'react-hook-form';
+import { submitProfile } from './SubmitEmployee';
+import { useState } from 'react';
+import LoadingIcon from '../../components/LoadingIcon';
 
-const CreateProfilePage = () => {
-  const {
-    register,
-    handleSubmit,
-    reset,
+type ProfileFormProps = {
+  onProfileSubmit: () => void;
+};
+const defaultValues: Partial<ProfileData> = {
+  firstName: '',
+  lastName: '',
+  phone: '',
+  email: '',
+  birthDate: '',
+  gender: 'MALE',
+};
 
-    formState: { errors, isSubmitting },
-  } = useForm<ProfileData>({
+const ProfileForm = ({ onProfileSubmit }: ProfileFormProps) => {
+  const router = useRouter();
+
+  const [submitting, setSubmitting] = useState(false);
+
+  const genders = [
+    { label: 'Male', value: 'MALE' },
+    { label: 'Female', value: 'FEMALE' },
+    { label: 'Other', value: 'OTHER' },
+  ];
+
+  const form = useForm<ProfileData>({
     resolver: zodResolver(profileSchema),
+    defaultValues,
   });
-
   return (
-    <div className='max-w-[40rem] mx-auto mt-10'>
+    <Form {...form}>
       <form
-        onSubmit={handleSubmit((data) => {
-          // HandleSubmitProfile(data);
-          reset();
+        className='space-y-8'
+        onSubmit={form.handleSubmit((data) => {
+          setSubmitting(true);
+          submitProfile(data, () => {
+            onProfileSubmit();
+            form.reset(defaultValues);
+            router.refresh();
+            setSubmitting(false);
+          });
         })}>
-        <div className='space-y-12'>
-          <div className='border-b border-gray-900/10 pb-12'>
-            <h2 className='text-base font-semibold leading-7 text-gray-900'>
-              Employeee Personal Information
-            </h2>
-            <p className='mt-1 text-sm leading-6 text-gray-600'>
-              These informations will be use to create your employee profile.
-            </p>
-
-            <div className='mt-10 grid grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-6'>
-              <div className='sm:col-span-3'>
-                <label
-                  htmlFor='first-name'
-                  className='block text-sm font-medium leading-6 text-gray-900'>
-                  First name
-                </label>
-                <div className='mt-2'>
-                  <input
-                    {...register('firstName')}
-                    type='text'
-                    name='firstName'
-                    id='first-name'
-                    autoComplete='given-name'
-                    className='block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:none sm:text-sm sm:leading-6 px-3'
-                  />
-                  {errors.firstName && (
-                    <p className='text-red-600 text-xs font-medium'>
-                      {errors.firstName?.message}
-                    </p>
-                  )}
-                </div>
-              </div>
-
-              <div className='sm:col-span-3'>
-                <label
-                  htmlFor='last-name'
-                  className='block text-sm font-medium leading-6 text-gray-900'>
-                  Last name
-                </label>
-                <div className='mt-2'>
-                  <input
-                    {...register('lastName')}
-                    type='text'
-                    name='lastName'
-                    id='last-name'
-                    autoComplete='family-name'
-                    className='block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset  sm:text-sm sm:leading-6 px-3'
-                  />
-                  {errors.lastName && (
-                    <p className='text-red-600 text-xs font-medium'>
-                      {errors.lastName?.message}
-                    </p>
-                  )}
-                </div>
-              </div>
-
-              <div className='sm:col-span-4'>
-                <label
-                  htmlFor='phone'
-                  className='block text-sm font-medium leading-6 text-gray-900'>
-                  Phone Number
-                </label>
-                <div className='mt-2'>
-                  <input
-                    {...register('phone')}
-                    id='phone'
-                    name='phone'
-                    type='tel'
-                    autoComplete='email'
-                    className='block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset  sm:text-sm sm:leading-6 px-3'
-                  />
-                  {errors.phone && (
-                    <p className='text-xs font-medium text-red-600'>
-                      {errors.phone.message}
-                    </p>
-                  )}
-                </div>
-              </div>
-
-              <div className='sm:col-span-3'>
-                <label
-                  htmlFor='gender'
-                  className='block text-sm font-medium leading-6 text-gray-900'>
-                  Gender
-                </label>
-                <div className='mt-2'>
-                  <select
-                    {...register('gender')}
-                    id='gender'
-                    name='gender'
-                    autoComplete='employee-gender'
-                    className='block w-full rounded-md border-0 py-2.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-insetsm:max-w-xs sm:text-sm sm:leading-6 px-3'>
-                    <option value='MALE'>Male</option>
-                    <option value='FEMALE'>Female</option>
-                    <option value='OTHER'>Other</option>
-                  </select>
-                  {errors.gender && (
-                    <p className='text-red-600 text-xs font-medium'>
-                      {errors.gender.message}
-                    </p>
-                  )}
-                </div>
-              </div>
-
-              <div className='sm:col-span-3'>
-                <label
-                  htmlFor='birthday'
-                  className='block text-sm font-medium leading-6 text-gray-900'>
-                  Birth Date
-                </label>
-                <div className='mt-2'>
-                  <input
-                    {...register('birthDate', { valueAsDate: true })}
-                    id='birthday'
-                    name='birthDate'
-                    type='date'
-                    autoComplete='employee-birthday'
-                    className='block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset  sm:text-sm sm:leading-6 px-3'
-                  />
-                  {errors.birthDate && (
-                    <p className='text-xs font-medium text-red-600'>
-                      {errors.birthDate.message}
-                    </p>
-                  )}
-                </div>
-              </div>
-
-              <div className='col-span-full'>
-                <label
-                  htmlFor='street-address'
-                  className='block text-sm font-medium leading-6 text-gray-900'>
-                  Email
-                </label>
-                <div className='mt-2'>
-                  <input
-                    {...register('email')}
-                    type='email'
-                    name='email'
-                    id='email'
-                    autoComplete='email'
-                    className='block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset  sm:text-sm sm:leading-6 px-3'
-                  />
-                  {errors.email && (
-                    <p className='text-xs font-medium text-red-600'>
-                      {errors.email.message}
-                    </p>
-                  )}
-                </div>
-              </div>
-            </div>
-            <Button type='submit' className='my-5' disabled={isSubmitting}>
-              Create Profile
-            </Button>
-          </div>
+        <div className='grid grid-cols-2 gap-5'>
+          <FormField
+            control={form.control}
+            name='firstName'
+            render={({ field }) => (
+              <FormItem>
+                <FormControl>
+                  <Input placeholder='Firt name' {...field} />
+                </FormControl>
+                <FormMessage className='text-xs' />
+              </FormItem>
+            )}
+          />
+          <FormField
+            control={form.control}
+            name='lastName'
+            render={({ field }) => (
+              <FormItem>
+                <FormControl>
+                  <Input placeholder='Last name' {...field} />
+                </FormControl>
+                <FormMessage className='text-xs' />
+              </FormItem>
+            )}
+          />
         </div>
+
+        <div className='grid grid-cols-2 gap-5'>
+          <FormField
+            name='gender'
+            control={form.control}
+            render={({ field }) => (
+              <FormItem>
+                <FormControl>
+                  <Select {...field} onValueChange={field.onChange}>
+                    <SelectTrigger>
+                      <SelectValue placeholder='Gender' />
+                    </SelectTrigger>
+                    <SelectContent>
+                      {genders.map((gender) => (
+                        <SelectItem key={gender.value} value={gender.value}>
+                          {gender.label}
+                        </SelectItem>
+                      ))}
+                    </SelectContent>
+                  </Select>
+                </FormControl>
+                <FormMessage className='text-xs' />
+              </FormItem>
+            )}
+          />
+
+          <FormField
+            control={form.control}
+            name='birthDate'
+            render={({ field }) => (
+              <FormItem>
+                <FormControl>
+                  <Input placeholder='Birth Date' {...field} type='date' />
+                </FormControl>
+                <FormMessage className='text-xs' />
+              </FormItem>
+            )}
+          />
+        </div>
+
+        <div className='grid grid-cols-2 gap-5'>
+          <FormField
+            control={form.control}
+            name='phone'
+            render={({ field }) => (
+              <FormItem>
+                <FormLabel className='text-xs'>Phone</FormLabel>
+                <FormControl>
+                  <Input placeholder='44183344' {...field} type='text' />
+                </FormControl>
+                <FormMessage className='text-xs' />
+              </FormItem>
+            )}
+          />
+
+          <FormField
+            control={form.control}
+            name='email'
+            render={({ field }) => (
+              <FormItem>
+                <FormLabel className='text-xs'>Email</FormLabel>
+                <FormControl>
+                  <Input placeholder='rcom@gmail.com' {...field} type='email' />
+                </FormControl>
+                <FormMessage className='text-xs' />
+              </FormItem>
+            )}
+          />
+        </div>
+
+        <Button type='submit' variant='outline'>
+          {submitting ? (
+            <span className='flex justify-between items-center gap-2'>
+              <LoadingIcon /> Submitting
+            </span>
+          ) : (
+            'Submit Profile'
+          )}
+        </Button>
       </form>
-    </div>
+    </Form>
   );
 };
-export default CreateProfilePage;
+export default ProfileForm;

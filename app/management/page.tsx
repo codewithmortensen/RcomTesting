@@ -16,7 +16,7 @@ import axios from 'axios';
 import { Suspense } from 'react';
 import LoadingIcon from './components/LoadingIcon';
 
-export default function Analitics() {
+export function Analitics() {
   const { data, isLoading } = useQuery<Analitics[]>({
     queryKey: ['analitics'],
     queryFn: () =>
@@ -209,3 +209,7 @@ function BarChart(props: any) {
     </div>
   );
 }
+
+export const dynamic = 'force-dynamic';
+
+export default Analitics;

@@ -9,24 +9,25 @@ export const datePickerSchema = z.object({
 
 export const profileSchema = z.object({
   firstName: z
-    .string()
+    .string({ required_error: 'First name is required' })
     .min(3, { message: 'first name should be atleast 3 characters' })
     .max(50, { message: 'first name should be less than 50 characters' }),
   lastName: z
-    .string()
+    .string({ required_error: 'Last name is required' })
     .min(3, { message: 'last name should be atleast 3 characters' })
     .max(50, { message: 'last name should be less than 50 characters' }),
-  birthDate: z
-    .date()
-    .min(new Date('1980-01-01'), { message: 'Enter a valid birthdate' })
-    .max(new Date('2003-01-01'), { message: 'Enter a valid birthdate' }),
+  birthDate: z.string({ required_error: 'Birth date is required' }),
   gender: z.enum(['FEMALE', 'MALE', 'OTHER'], {
     errorMap: () => {
       return { message: 'Please select a gender' };
     },
   }),
-  phone: z.string().min(8, { message: 'phone number is not valid' }),
-  email: z.string().min(10, { message: 'This is not a valid email' }),
+  phone: z
+    .string({ required_error: 'Phone Number is required' })
+    .min(8, { message: 'phone number is not valid' }),
+  email: z
+    .string({ required_error: 'Email is Required' })
+    .min(10, { message: 'This is not a valid email' }),
 });
 
 export const employeeIdSchema = z.object({

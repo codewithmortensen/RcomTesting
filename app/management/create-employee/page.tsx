@@ -1,11 +1,20 @@
+'use client';
+
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import CreateProfilePage from './components/ProfileForm';
 
 import { EmployeeForm } from './components/EmployeeForm';
+import { useState } from 'react';
 const EmloyeeProfilePage = () => {
+  const [activeTab, setActiveTab] = useState('profile');
+
+  const handleProfileSubmit = () => {
+    setActiveTab('employee');
+  };
+
   return (
     <div>
-      <Tabs defaultValue='profile' className='mx-10'>
+      <Tabs defaultValue={activeTab} className='mx-10'>
         <TabsList className='mb-5'>
           <TabsTrigger
             value='profile'
@@ -13,15 +22,15 @@ const EmloyeeProfilePage = () => {
             Profile Info
           </TabsTrigger>
           <TabsTrigger
-            value='work'
+            value='employee'
             className='text-xs font-medium tracking-wide'>
             Work Info
           </TabsTrigger>
         </TabsList>
         <TabsContent value='profile'>
-          <CreateProfilePage />
+          <CreateProfilePage onProfileSubmit={handleProfileSubmit} />
         </TabsContent>
-        <TabsContent value='work'>
+        <TabsContent value='employee'>
           <EmployeeForm />
         </TabsContent>
       </Tabs>

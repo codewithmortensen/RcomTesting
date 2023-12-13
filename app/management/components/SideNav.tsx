@@ -62,3 +62,5 @@ export default function SideNav() {
     </div>
   );
 }
+
+export const dynamic = 'force-dynamic';

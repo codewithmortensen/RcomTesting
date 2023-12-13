@@ -63,7 +63,7 @@ export type EmployeeAttendance = {
   employee_id: number;
   first_name: string;
   last_name: string;
-  attendance_date: string;
+  attendance_date: Date;
   check_in_time: string;
   check_out_time: string;
   check_in_status: CheckInStatus;

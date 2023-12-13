@@ -145,7 +145,7 @@ export function EmployeeForm() {
                 <FormControl>
                   <Input placeholder='Job Title' {...field} />
                 </FormControl>
-                <FormMessage />
+                <FormMessage className='text-xs' />
               </FormItem>
             )}
           />
