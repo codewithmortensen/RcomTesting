@@ -24,7 +24,7 @@ export default function SideNav() {
   const currentPath = usePathname();
   return (
     <div className='min-h-[90vh] flex max-w-[15rem] shadow-sm m-1 rounded-sm'>
-      <div className='w-[280px] h-[90vh] dark:text-white p-4 overflow-auto flex flex-col justify-between  rounded border'>
+      <div className='w-[280px] h-[90vh] dark:text-white p-4 overflow-auto flex flex-col justify-between  rounded '>
         <div className='flex flex-col gap-4'>
           <Link href='/management' className={cn(style)}>
             <LayoutDashboardIcon className='h-6 w-6' />
@@ -55,15 +55,6 @@ export default function SideNav() {
               )}
             </Link>
           ))}
-        </div>
-
-        <div className='flex flex-col gap-4'>
-          <Link
-            className={cn('mt-auto', buttonVariants({ variant: 'outline' }))}
-            href='/management/create-employee'>
-            <PlusIcon className='h-4 w-4 mr-2' />
-            <span>Add New Employee</span>
-          </Link>
         </div>
       </div>
 

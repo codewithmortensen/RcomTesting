@@ -6,17 +6,19 @@ import {
   TableHeader,
   TableRow,
 } from '@/components/ui/table';
-import { useAttendances } from '../hook/useAttendances';
-import dayjs from 'dayjs';
-import CheckInStatusBadge from './CheckInStatus';
 import { sort } from 'fast-sort';
+import CheckInStatusBadge from '../attendances/components/CheckInStatus';
+import { useAttendances } from '../attendances/hook/useAttendances';
+import RecentActivitiesLoading from './RecentActivitiesLoading';
 
 const RecentActivities = () => {
-  const { data: attendances } = useAttendances();
+  const { data: attendances, isLoading } = useAttendances();
 
   const sortedActivities = sort(attendances || []).desc(
     (u) => u.attendance_date
   );
+
+  if (isLoading) return <RecentActivitiesLoading />;
 
   return (
     <div>

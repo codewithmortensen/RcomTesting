@@ -10,11 +10,11 @@ interface Analitics {
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { ResponsiveBar } from '@nivo/bar';
 import { ClockIcon, MinusCircleIcon, UsersIcon } from 'lucide-react';
-import RecentActivities from './attendances/components/RecentActivities';
+import RecentActivities from './components/RecentActivities';
 import { useQuery } from '@tanstack/react-query';
 import axios from 'axios';
 import { Suspense } from 'react';
-import LoadingIcon from './attendances/components/LoadingIcon';
+import LoadingIcon from './components/LoadingIcon';
 
 export default function Analitics() {
   const { data, isLoading } = useQuery<Analitics[]>({

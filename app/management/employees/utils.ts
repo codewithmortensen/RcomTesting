@@ -1,5 +1,7 @@
+import { notFound } from 'next/navigation';
 import { EmployeeProfile } from '../../types/definitions';
 import { sql } from '../../utils/query';
+import Error from '../error';
 
 export const getEmployees = async () => {
   try {
@@ -9,12 +11,11 @@ export const getEmployees = async () => {
 		JOIN employeetable USING (profile_id) `;
     return employees;
   } catch (error) {
-    throw new Error('Error fetching employees');
+    if (error instanceof Error) notFound();
   }
 };
-export const getEmployee = async (
-  employee_id: number
-): Promise<EmployeeProfile | null> => {
+
+export const getEmployee = async (employee_id: number) => {
   try {
     const employees: EmployeeProfile[] = await sql`
         SELECT * 
@@ -23,8 +24,6 @@ export const getEmployee = async (
     WHERE employee_id = ${employee_id} `;
     return employees[0] || null;
   } catch (error: unknown) {
-    if (error instanceof Error)
-      throw new Error(`Error fetching employee: ${error.message}`);
-    return null;
+    if (error instanceof Error) notFound();
   }
 };
