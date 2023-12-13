@@ -21,16 +21,12 @@ export function DataTable() {
   const [to, setTo] = useState<Date>();
   const [from, setFrom] = useState<Date>();
 
-  const { data, refetch, isLoading } = useAttendanceReport({ to, from });
+  const { data, isLoading } = useAttendanceReport({ to, from });
 
   const { table } = useTableFilter({
     columns: columns,
     data: data !== undefined ? data : [],
   });
-
-  useEffect(() => {
-    refetch();
-  }, [to, from, refetch]);
 
   if (isLoading) {
     return <PageLoading />;

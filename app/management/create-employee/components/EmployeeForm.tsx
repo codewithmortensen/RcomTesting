@@ -40,8 +40,10 @@ import { roles, statues } from '../../employees/create/components/utils';
 
 import { Skeleton } from '@/components/ui/skeleton';
 import { useRouter } from 'next/navigation';
-import { useProfiles, useSubmitEmployee } from './hook/useSubmitEmployee';
+
 import { cn } from '@/lib/utils';
+import { useProfiles } from './hook/useProfiles';
+import { SubmitEmployee } from './SubmitEmployee';
 
 const defaultValues: Partial<EmployeeData> = {};
 
@@ -59,7 +61,7 @@ export function EmployeeForm() {
     <Form {...form}>
       <form
         onSubmit={form.handleSubmit((data) => {
-          useSubmitEmployee(data, () => {
+          SubmitEmployee(data, () => {
             form.reset();
             router.push('/management/employees');
           });

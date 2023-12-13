@@ -4,7 +4,6 @@ import { AttendanceReport } from '@/app/types/definitions';
 import { Checkbox } from '@/components/ui/checkbox';
 import { ColumnDef } from '@tanstack/react-table';
 import { DataTableColumnHeader } from './data-table-column-header';
-import { DataTableRowActions } from './data-table-row-actions';
 
 export const columns: ColumnDef<AttendanceReport>[] = [
   {
@@ -63,7 +62,7 @@ export const columns: ColumnDef<AttendanceReport>[] = [
   {
     accessorKey: 'on_time_check_in_count',
     header: ({ column }) => (
-      <DataTableColumnHeader column={column} title='On Time' />
+      <DataTableColumnHeader column={column} title='On Time Count' />
     ),
     cell: ({ row }) => {
       const count: string = row.getValue('on_time_check_in_count');
@@ -77,7 +76,7 @@ export const columns: ColumnDef<AttendanceReport>[] = [
   {
     accessorKey: 'late_check_in_count',
     header: ({ column }) => (
-      <DataTableColumnHeader column={column} title='Late' />
+      <DataTableColumnHeader column={column} title='Late Count' />
     ),
     cell: ({ row }) => {
       return (
@@ -90,7 +89,7 @@ export const columns: ColumnDef<AttendanceReport>[] = [
   {
     accessorKey: 'early_check_out_count',
     header: ({ column }) => (
-      <DataTableColumnHeader column={column} title='Early' />
+      <DataTableColumnHeader column={column} title='Early Ckeck out Count' />
     ),
     cell: ({ row }) => {
       const time: Date = row.getValue('early_check_out_count');
@@ -102,22 +101,9 @@ export const columns: ColumnDef<AttendanceReport>[] = [
     },
   },
   {
-    accessorKey: 'on_time_check_out_count',
-    header: ({ column }) => (
-      <DataTableColumnHeader column={column} title='Ch' />
-    ),
-    cell: ({ row }) => {
-      return (
-        <div className='flex space-x-2'>
-          {row.getValue('on_time_check_out_count')}
-        </div>
-      );
-    },
-  },
-  {
     accessorKey: 'absent_count',
     header: ({ column }) => (
-      <DataTableColumnHeader column={column} title='Absent' />
+      <DataTableColumnHeader column={column} title='Absent Count' />
     ),
     cell: ({ row }) => {
       return (
@@ -125,10 +111,4 @@ export const columns: ColumnDef<AttendanceReport>[] = [
       );
     },
   },
-  // {
-  //   id: 'actions',
-  //   cell: ({ row }) => (
-  //     <DataTableRowActions employee_id={row.getValue('employee_id')} />
-  //   ),
-  // },
 ];

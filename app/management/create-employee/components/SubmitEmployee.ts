@@ -2,15 +2,9 @@
 
 import { EmployeeData } from '@/app/types/definitions';
 import { toast } from '@/components/ui/use-toast';
-import { useQuery } from '@tanstack/react-query';
 import axios, { AxiosError } from 'axios';
 
-type ProfileProps = {
-  profile_id: number;
-  full_name: string;
-};
-
-export const useSubmitEmployee = async (
+export const SubmitEmployee = async (
   data: EmployeeData,
   onSuccess: () => void
 ) => {
@@ -24,12 +18,4 @@ export const useSubmitEmployee = async (
   } catch (error) {
     if (error instanceof AxiosError) toast({ title: error.message });
   }
-};
-
-export const useProfiles = () => {
-  return useQuery({
-    queryKey: ['profiles'],
-    queryFn: () =>
-      axios.get<ProfileProps[]>('/api/profiles').then((res) => res.data),
-  });
 };
