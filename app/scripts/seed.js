@@ -56,4 +56,27 @@ CREATE TABLE AttendanceTable (
     check_out_status CheckOutStatus,
     work_day_status WorkDayStatus,
     FOREIGN KEY (employee_id) REFERENCES EmployeeTable(employee_id)
-)`;
+)
+
+
+
+CREATE EXTENSION IF NOT EXISTS "uuid-ossp"
+
+      CREATE TABLE IF NOT EXISTS users (
+        id UUID DEFAULT uuid_generate_v4() PRIMARY KEY,
+        name VARCHAR(255) NOT NULL,
+        email TEXT NOT NULL UNIQUE,
+        password TEXT NOT NULL
+      );
+
+      // // Insert data into the "users" table
+      // const insertedUsers = await Promise.all(
+      //   users.map(async (user) => {
+      //     const hashedPassword = await bcrypt.hash(user.password, 10);
+      //     return client.sql`//     INSERT INTO users (id, name, email, password)
+//     VALUES (${user.id}, ${user.name}, ${user.email}, ${hashedPassword})
+//     ON CONFLICT (id) DO NOTHING;
+//   `;
+//   }),
+// );
+``;

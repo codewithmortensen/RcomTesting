@@ -1,28 +1,16 @@
-import { Metadata } from 'next';
-import Image from 'next/image';
-import Link from 'next/link';
+import LoginForm from './LoginForm';
 
-import { cn } from '@/lib/utils';
-import { buttonVariants } from '@/components/ui/button';
-import { UserAuthForm } from './Form';
-
-export const metadata: Metadata = {
-  title: 'Authentication',
-  description: 'Authentication forms built using the components.',
-};
-
-export default function AuthenticationPage() {
+export default function LoginPage() {
   return (
-    <div className='mx-auto flex w-full flex-col justify-center item-center space-y-6 sm:w-[350px] h-[90vh]'>
-      <div className='flex flex-col space-y-2 text-center'>
-        <h1 className='text-2xl font-semibold tracking-tight'>
-          Create an account
-        </h1>
-        <p className='text-sm text-muted-foreground'>
-          Enter your email below to create your account
-        </p>
+    <main className='flex items-center justify-center md:h-screen'>
+      <div className='relative mx-auto flex w-full max-w-[400px] flex-col space-y-2.5 p-4 md:-mt-32'>
+        <div className='flex h-20 w-full items-end rounded-lg bg-blue-500 p-3 md:h-36'>
+          <div className='w-32 text-white md:w-36'>
+            {/* <AcmeLogo /> */} Rcom
+          </div>
+        </div>
+        <LoginForm />
       </div>
-      <UserAuthForm />
-    </div>
+    </main>
   );
 }

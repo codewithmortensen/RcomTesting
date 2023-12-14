@@ -31,7 +31,7 @@ const RecentActivities = () => {
             <TableHead>Status</TableHead>
           </TableRow>
         </TableHeader>
-        <TableBody className='text-xs font-thin'>
+        <TableBody className='text-xs '>
           {sortedActivities
             .reverse()
             .slice(0, 5)

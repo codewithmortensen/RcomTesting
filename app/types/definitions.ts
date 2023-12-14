@@ -103,6 +103,13 @@ export type AttendanceReport = {
   present_count: number;
 };
 
+export type User = {
+  id: string;
+  name: string;
+  email: string;
+  password: string;
+};
+
 export type DatePickerData = z.infer<typeof datePickerSchema>;
 export type ProfileData = z.infer<typeof profileSchema>;
 export type EmployeeIdData = z.infer<typeof employeeIdSchema>;
